@@ -1,0 +1,32 @@
+# System files
+.DS_Store
+Thumbs.db
+._*
+
+# Bitrix Cache
+/bitrix/cache/
+/bitrix/managed_cache/
+/bitrix/html_cache/
+/bitrix/tmp/
+/upload/tmp/
+/upload/resize_cache/
+
+# Backups
+/bitrix/backup/
+*.tar.gz
+*.sql
+*.bak
+
+# Logs
+*.log
+/bitrix/modules/*.log
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# Local environment
+bitrixsetup.php
+restore.php
+download_backup.sh

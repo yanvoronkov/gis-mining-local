@@ -1,0 +1,3 @@
+<?php
+$sSectionName = "GPU-майнеры";
+?>

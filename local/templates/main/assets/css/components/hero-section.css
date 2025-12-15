@@ -1,0 +1,120 @@
+/* ===================================
+   Компонент Hero Section
+   =================================== */
+
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-section__background-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-section__container {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.hero-section__image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-section__adaptive-media-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.hero-section__adaptive-media-container video,
+.hero-section__fallback-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-section__title {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.hero-section__subtitle {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 500px;
+    margin-bottom: 2rem;
+}
+
+.hero-section__actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.hero-section__button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hero-section__background-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.1;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .hero-section__container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .hero-section__actions {
+        justify-content: center;
+    }
+    
+    .hero-section__subtitle {
+        margin: 0 auto 2rem auto;
+    }
+}
+
+/* Оптимизация для производительности */
+.hero-section video {
+    will-change: transform;
+}
+
+.hero-section__title,
+.hero-section__subtitle {
+    will-change: opacity;
+}

@@ -1,0 +1,395 @@
+/* =========================================
+   Общие настройки блока
+   ========================================= */
+.crypto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+    margin-bottom: 80px; /* отступ от футера */
+}
+
+/* Панель с фильтрами + временем обновления */
+.crypto-toolbar {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Время обновления */
+.crypto-updated {
+    font-size: 14px;
+    opacity: 0.75;
+}
+
+/* =========================================
+   Фильтры
+   ========================================= */
+.crypto-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.crypto-filter-btn {
+    padding: 10px 18px;
+    border-radius: 12px;
+    border: 1px solid #E0E3EA;
+    background: #FFFFFF;
+    cursor: pointer;
+    transition: 0.25s ease;
+    font-size: 15px;
+}
+
+.crypto-filter-btn.active,
+.crypto-filter-btn:hover {
+    background: #5b61ff;
+    border-color: #5b61ff;
+    color: #FFFFFF;
+}
+
+/* =========================================
+   Карточки
+   ========================================= */
+.crypto-card {
+    background: #FFFFFF;
+    border-radius: 22px;
+    padding: 22px 24px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: 0.25s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.crypto-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+.crypto-card__header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.crypto-card__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    object-fit: contain;
+    background: #f3f5fa;
+}
+
+.crypto-card__name {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: "DrukTextWideCyr-Medium", sans-serif;
+}
+
+.crypto-card__symbol {
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+.crypto-card__price {
+    margin-top: 16px;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.crypto-card__change {
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: "DrukTextWideCyr-Medium", sans-serif;
+}
+
+.crypto-card__change--up {
+    color: #5b61ff;
+}
+
+.crypto-card__change--down {
+    color: #E34040;
+}
+
+/* =========================================
+   Skeleton / Прелоадер
+   ========================================= */
+.crypto-card--skeleton {
+    pointer-events: none;
+    box-shadow: none;
+}
+
+.crypto-skel {
+    position: relative;
+    overflow: hidden;
+    background: #e3e6ee;
+    border-radius: 8px;
+}
+
+.crypto-skel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150px;
+    width: 150px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+    animation: cryptoShimmer 1.1s infinite;
+}
+
+.crypto-skel-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.crypto-skel-line {
+    height: 10px;
+    margin-top: 8px;
+}
+
+.crypto-skel-line-lg {
+    width: 80px;
+}
+
+.crypto-skel-line-sm {
+    width: 50px;
+}
+
+.crypto-skel-line-xl {
+    width: 120px;
+}
+
+.crypto-skel-line-md {
+    width: 70px;
+}
+
+@keyframes cryptoShimmer {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(180px); }
+}
+
+/* =========================================
+   Popup — общий контейнер
+   ========================================= */
+.crypto-popup {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 999999;
+}
+
+.crypto-popup__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(19, 19, 21, 0.55);
+    backdrop-filter: blur(3px);
+}
+
+.crypto-popup__window {
+    position: relative;
+    max-width: 650px;
+    width: 90%;
+    margin: 60px auto;
+    background: #FFFFFF;
+    border-radius: 26px;
+    padding: 32px 34px 34px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.22);
+    animation: cryptoPopupFade .25s ease-out;
+}
+
+@keyframes cryptoPopupFade {
+    from {opacity:0; transform:translateY(12px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+.crypto-popup__close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    opacity: .5;
+}
+
+.crypto-popup__close:hover {
+    opacity: 1;
+}
+
+/* =========================================
+   Popup — криптовалюта
+   ========================================= */
+.crypto-popup__header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.crypto-popup__logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #F2F4F7;
+    padding: 10px;
+    object-fit: contain;
+}
+
+.crypto-popup__title {
+    font-size: 30px;
+    font-weight: 700;
+    font-family: "DrukTextWideCyr-Medium", sans-serif;
+}
+
+/* Цена и проценты */
+.crypto-price-main {
+    font-size: 36px;
+    font-weight: 700;
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.crypto-price-change-badge {
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    color: #FFF;
+    font-family: "DrukTextWideCyr-Medium", sans-serif;
+    font-size: 18px;
+}
+
+.crypto-up { background:#5b61ff; }
+.crypto-down { background:#E34040; }
+
+/* Блоки информации */
+.crypto-info-grid {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 22px;
+    font-size: 17px;
+}
+
+.crypto-info-grid span {
+    font-weight: 700;
+}
+
+/* График */
+.crypto-popup__chart {
+    margin-top: 30px;
+    height: 300px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #F3F5FA;
+}
+
+/* стили графика */
+.crypto-chart-grid-line {
+    stroke: #E1E5EC;
+    stroke-width: 1;
+}
+
+.crypto-chart-line {
+    stroke: #5b61ff;
+    stroke-width: 3;
+    fill: none;
+}
+
+.crypto-chart-area {
+    fill: rgba(91,97,255,0.20);
+}
+
+.crypto-chart-point {
+    fill: #5b61ff;
+    stroke: #fff;
+    stroke-width: 2;
+    r: 4;
+}
+
+.crypto-chart-text {
+    fill: #9aa3b5;
+    font-size: 22px;
+}
+
+/* =========================================
+   Popup — embed-код
+   ========================================= */
+.crypto-embed-code {
+    width: 100%;
+    height: 140px;
+    margin-top: 18px;
+    border-radius: 14px;
+    border: 1px solid #d2d6e2;
+    padding: 14px;
+    resize: none;
+    font-size: 15px;
+    background: #f7f8fc;
+}
+
+.crypto-embed-copy-btn {
+    margin-top: 18px;
+    width: 100%;
+    padding: 14px;
+    background: #5b61ff;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.crypto-embed-copy-btn:hover {
+    background: #464cff;
+}
+
+/* Кнопка "Встроить на свой сайт" */
+.crypto-embed-wrapper {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.crypto-embed-btn {
+    padding: 14px 30px;
+    background: #5b61ff;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.crypto-embed-btn:hover {
+    background: #464cff;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+    .crypto-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .crypto-popup__window {
+        padding: 24px 20px;
+        border-radius: 20px;
+        margin: 40px auto;
+    }
+
+    .crypto-popup__title {
+        font-size: 24px;
+    }
+
+    .crypto-price-main {
+        font-size: 28px;
+    }
+}

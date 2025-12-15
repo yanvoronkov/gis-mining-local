@@ -1,0 +1,21 @@
+{
+    "name": "GIS Mining - Оборудование для майнинга",
+    "short_name": "GIS Mining",
+    "description": "Продажа и размещение оборудования для майнинга.",
+    "icons": [
+        {
+            "src": "/local/templates/main/assets/img/favicons/favicon.ico",
+            "sizes": "16x16",
+            "type": "image/ico"
+        },
+        {
+            "src": "/local/templates/main/assets/img/favicons/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "start_url": "/"
+}

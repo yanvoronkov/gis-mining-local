@@ -1,0 +1,1 @@
+<?define("arturgolubev_chatgpt_TEMPORARY_CACHE", "IDFWAipjAgRtAnk3A2JULQB2");?>

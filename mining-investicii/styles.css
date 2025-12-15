@@ -1,0 +1,1854 @@
+/* 
+* GIS Mining - ИнвестицииzМайнинг под ключ
+* Версия: 1.0
+* Последнее обновление: 02.04.2025
+*/
+
+/* ----- 1. CSS-переменные ----- */
+
+:root {
+    /* Цвета */
+    --blue: #3238E0;
+    --acent-blue: #5359FF;
+    --text-dark: #181C25;
+    --background-dark: #090E17;
+    --text-light: #FFFFFF;
+    --background-body: #F5F5F5;
+
+    /* Радиусы скругления */
+    --border-radius-20: 20px;
+    --border-radius-40: 40px;
+    --border-radius-50: 50px;
+
+    /* Тени */
+    --shadow-card: 15px 10px 40px 0 rgba(0, 0, 0, .05);
+
+    /* Шрифты */
+    --font-main: 'Rawline Normal', sans-serif;
+    --font-main-semi: 'Rawline SemiBold', sans-serif;
+    --font-main-bold: 'Rawline Bold', sans-serif;
+    --font-heading: 'DrukTextWideCyr-Medium', sans-serif;
+}
+
+/* ----- 2. Подключение шрифтов ----- */
+
+@font-face {
+    font-family: 'DrukTextWideCyr-Medium';
+    src: url('fonts/DrukTextWideCy-Medium.woff2') format('woff2'),
+        url('fonts/DrukTextWideCy-Medium.woff') format('woff'),
+        url('fonts/DrukTextWideCy-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Rawline Normal';
+    src: url("fonts/rawline-400.ttf") format("truetype");
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rawline SemiBold';
+    src: url("fonts/rawline-600.ttf") format("truetype");
+    font-weight: 600;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rawline Bold';
+    src: url("fonts/rawline-700.ttf") format("truetype");
+    font-weight: 700;
+    font-display: swap;
+    font-style: normal;
+}
+
+/* Сброс стилей удален - используется из main.css */
+
+.container {
+    padding: 0 15px;
+    margin: 0 auto;
+    max-width: 1920px;
+}
+
+@media (min-width: 480px) {
+
+    .container {
+        padding: 0 25px;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .container {
+        padding: 0 20px;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    .container {
+        padding: 0 30px;
+    }
+}
+
+/* ----- 4. Основные стили ----- */
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 90;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+hr {
+    border-top: 1px solid rgba(247, 247, 247, 0.45);
+    margin: 20px 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Общие компоненты */
+
+.font-blue {
+    color: var(--blue);
+}
+
+.font-dark {
+    color: var(--text-dark);
+}
+
+.bg_wrapper {
+    background-image: url(/mining-investicii/images/background_body_mobile.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Стили кнопок удалены - используются из main.css */
+
+.section-title {
+    font-family: var(--font-heading);
+    margin-bottom: 40px;
+    color: var(--text-dark);
+    font-size: 24px;
+    font-weight: 700;
+    text-align: left;
+}
+
+.smart-captcha {
+    margin-bottom: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .section-title {
+        text-transform: uppercase;
+    }
+}
+
+
+@media screen and (min-width: 992px) {
+    .bg_wrapper {
+        background-image: url(/mining-investicii/images/background_body.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .section-title {
+        text-transform: uppercase;
+    }
+
+}
+
+@media screen and (min-width: 1200px) {
+
+    .section-title {
+        font-size: 36px;
+    }
+}
+
+/* Header и Footer стили удалены - используются из main.css */
+
+/* ===== Section Hero ===== */
+.hero .container {
+    font-family: var(--font-heading);
+    background-image: url(/mining-investicii/images/hero_image_mobile.png);
+    color: var(--text-light);
+    position: relative;
+    background-size: contain;
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.hero-section {
+    background-image: url("/mining-investicii/images/hero_background_mobile.jpg");
+    background-size: 125%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0 0 var(--border-radius-40) var(--border-radius-40);
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 41px;
+
+}
+
+.hero {
+    margin-top: 150px;
+}
+
+.hero__title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 25px 0 20px 0;
+    text-transform: uppercase;
+    line-height: 1.3;
+}
+
+.product__title {
+    font-family: var(--font-main);
+    padding-bottom: 405px;
+    font-size: 18px;
+}
+
+.product__highlight {
+    color: var(--acent-blue);
+}
+
+.product__features {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.product__feature {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.feature__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background-color: var(--acent-blue);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.feature__content {
+    text-align: left;
+}
+
+.feature__label,
+.feature__value {
+    font-family: var(--font-main);
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.feature__value {
+    font-weight: 700;
+}
+
+.hero__image {
+    margin: 0 -35px 40px 0;
+}
+
+.hero__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 15px;
+    font-family: var(--font-main-semi);
+}
+
+a:hover {
+    transform: translateY(-2px);
+}
+
+@media (min-width: 480px) {
+
+    .hero .container {
+        background-image: url(/mining-investicii/images/hero_image_tablet.png);
+    }
+
+    .hero__offer-wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .hero__title {
+        margin: 25px 0px 30px;
+        font-size: 20px;
+    }
+
+    .hero__image {
+        width: 50%;
+        margin: 0 -35px 40px 0;
+    }
+
+    .hero_offer {
+        width: 56%;
+    }
+
+    .hero__offer-wrapper {
+        align-items: center;
+    }
+
+    .hero__buttons {
+        padding-bottom: 25px;
+        flex-direction: row;
+        gap: 15px;
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    .product__title {
+        padding-bottom: 113px;
+    }
+
+    .hero-section {
+        background-image: url("/mining-investicii/images/hero_background.jpg");
+        background-size: 170%;
+    }
+
+    .hero__offer-wrapper {
+        align-items: start;
+    }
+
+    .hero__title {
+        font-size: 24px;
+        margin-right: -50px;
+    }
+
+    .hero__content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .hero__text {
+        width: 50%;
+    }
+
+    .hero__image {
+        width: 50%;
+        margin: 0 -56px 40px 0;
+    }
+
+    .hero__buttons {
+        padding-bottom: 66px;
+        flex-direction: row;
+        gap: 15px;
+        margin: -60px 0 0px;
+    }
+
+}
+
+@media (min-width: 992px) {
+    .hero__title {
+        font-size: 29px;
+        margin-right: -103px;
+    }
+
+    .product__title {
+        font-size: 22px;
+        padding-bottom: 113px;
+    }
+
+    .hero__buttons {
+        padding-bottom: 66px;
+        flex-direction: row;
+        gap: 15px;
+        margin: -80px 0 0px;
+    }
+
+    .product__features {
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 1200px) {
+    .hero_offer {
+        width: 60%;
+    }
+
+    .hero__title {
+        font-size: 33px;
+        margin: 80px 0 50px;
+    }
+
+    .product__title {
+        font-size: 23px;
+        padding-bottom: 150px;
+    }
+
+    .feature__label,
+    .feature__value {
+        font-size: 22px;
+        margin-bottom: 2px;
+    }
+
+    .hero__buttons {
+        font-size: 22px;
+
+        flex-direction: row;
+        gap: 15px;
+    }
+
+    .hero__buttons .btn {
+        font-size: 22px;
+        padding: 16px 50px
+    }
+}
+
+/* ===== Section Importance ===== */
+
+.importance__grid {
+    display: none;
+}
+
+.importance {
+    padding-bottom: 41px;
+}
+
+.importance__item {
+    display: flex;
+    align-items: flex-start;
+    background-color: var(--text-dark);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.importance__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: var(--acent-blue);
+    color: var(--text-light);
+    border-radius: 50%;
+    margin-right: 15px;
+    font-weight: 700;
+}
+
+.importance {
+    font-size: 14px;
+}
+
+.importance__slider .slider__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: var(--border-radius-20);
+    color: var(--text-light);
+    padding: 17px 15px 23px;
+    transition: all 0.3s ease;
+    flex: 0 0 auto;
+    min-width: unset;
+    width: 100%;
+    scroll-snap-align: unset;
+}
+
+.slider__item_color1 {
+    background-color: #3238E0;
+}
+
+.slider__item_color2 .slider__content {
+    background-color: #5B60E6;
+}
+
+.slider__item_color3 .slider__content {
+    background-color: #8488EC;
+}
+
+.slider__item_color4 .slider__content {
+    background-color: #ADAFF3;
+    color: var(--text-dark);
+}
+
+.slider__item_color5 .slider__content {
+    background-color: #D6D7F9;
+    color: var(--text-dark);
+}
+
+.slider__item_color6 .slider__content {
+    background-color: #EBEBFC;
+    color: var(--text-dark);
+}
+
+.importance__slider .slider .card-primary {
+    background-color: var(--acent-blue);
+    color: var(--text-light);
+}
+
+.importance__slider .slider__title {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+
+.importance .slider__item {
+    display: flex;
+    align-items: center;
+}
+
+.importance .slider__content svg {
+    flex: 0 0 auto;
+    margin-bottom: 17px;
+}
+
+.advantage__grid {
+    display: none;
+}
+
+@media (min-width: 768px) {
+
+    .importance__slider {
+        display: none;
+    }
+
+    .importance__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .importance__grid .slider__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-radius: var(--border-radius-20);
+        padding: 17px 15px 23px;
+        transition: all 0.3s ease;
+        flex: 0 0 auto;
+        min-width: unset;
+        width: 100%;
+        scroll-snap-align: unset;
+    }
+
+    .slider__item_color1 {
+        background-color: #3238E0;
+        color: var(--text-light);
+    }
+
+    .slider__item_color2 .slider__content {
+        background-color: #5B60E6;
+        color: var(--text-light);
+    }
+
+    .slider__item_color3 .slider__content {
+        background-color: #8488EC;
+        color: var(--text-light);
+    }
+
+    .importance__grid .slider__title {
+        flex: 1;
+        margin: 0;
+        padding-top: 5px;
+        font-family: var(--font-main-bold);
+        font-size: 24px;
+    }
+
+    .importance__grid .slider__text {
+        font-size: 16x;
+    }
+
+    .importance__grid .item--primary {
+        background-color: var(--acent-blue);
+        color: var(--text-light);
+    }
+
+    .importance__grid .slider__content svg {
+        flex: 0 0 auto;
+        margin-bottom: 5px;
+    }
+}
+
+@media (min-width: 992px) {
+    .importance .slider__container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .importance__grid .slider__title {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .importance__grid .slider__text {
+        font-size: 15px;
+    }
+}
+
+/* ===== Section simplicity ===== */
+
+.simplicity {
+    padding-bottom: 41px;
+}
+
+.simplicity__items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.simplicity__content_head {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.bullet-list {
+    padding-left: 30px;
+}
+
+.bullet-list li {
+    position: relative;
+    list-style-type: disc;
+}
+
+.simplicity__item {
+    display: flex;
+    align-items: center;
+}
+
+.simplicity__content {
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--border-radius-20);
+    color: var(--text-light);
+    padding: 20px 15px 23px;
+    transition: all 0.3s ease;
+    flex: 0 0 auto;
+    min-width: unset;
+    width: 100%;
+    scroll-snap-align: unset;
+    color: var(--text-dark);
+    height: 100%;
+}
+
+.simplicity__content_title {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    padding-left: 15px;
+}
+
+@media (min-width: 840px) {
+    .simplicity__items {
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    .simplicity__item {
+        width: calc(100% - 10px);
+    }
+
+    .simplicity__content_head {
+        display: block;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    .simplicity__content_head {
+        display: flex;
+    }
+
+    .simplicity__items {
+        flex-direction: row;
+        align-items: stretch;
+        flex-wrap: nowrap;
+    }
+
+    .simplicity__item {
+        width: 100%;
+    }
+
+    .simplicity__content_title {
+        font-size: 19px;
+    }
+
+    .bullet-list {
+        font-size: 17px;
+    }
+
+    .simplicity__content_head svg {
+        width: 55px;
+        height: 55px;
+    }
+}
+
+/* ===== Section Offer ===== */
+
+.offer {
+    padding-bottom: 41px;
+}
+
+.offer__title {
+    font-family: var(--font-main-bold);
+}
+
+@media (min-width: 768px) {
+    .offer__title {
+        font-family: var(--font-main-bold);
+        font-size: 22px;
+    }
+
+    .offer__description {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 992px) {
+    .offer__title {
+        font-family: var(--font-main-bold);
+        font-size: 25px;
+    }
+
+    .offer__description {
+        font-size: 25px;
+    }
+}
+
+/* ===== Section Stats ===== */
+.stats {
+    padding-bottom: 41px;
+}
+
+.stats__wrapper {
+    background-color: #FFFFFF;
+    border-radius: 24px;
+    padding: 20px 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.stats__description {
+    margin-bottom: 25px;
+}
+
+.stats__bold {
+    font-family: var(--font-main-bold);
+}
+
+.stats__company-name {
+    color: var(--text-dark);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.stats__list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stats__item {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 20px 15px;
+}
+
+.stats__number {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.stats .stats__number--primary {
+    color: var(--blue);
+}
+
+.stats__text {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-dark);
+    opacity: 0.8;
+}
+
+.stats__wrapper {
+    padding: 15px;
+}
+
+.stats__list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.stats__item {
+    width: 100%;
+}
+
+.slider__container {
+    gap: 20px;
+}
+
+@media screen and (min-width: 768px) {
+    .stats__item {
+        width: calc(50% - 10px);
+    }
+}
+
+@media screen and (min-width: 992px) {
+
+    .stats__company-name {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+
+    .stats__company-name {
+        font-size: 25px;
+    }
+
+    .stats__number {
+        font-size: 30px;
+
+    }
+
+    .stats__text {
+        font-size: 18px;
+    }
+}
+
+/* ===== Section How To ===== */
+
+.steps-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* На мобильных - один столбец */
+    gap: 40px;
+    /* Увеличиваем отступ между карточками */
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.step-container {
+    position: relative;
+    width: 100%;
+}
+
+.step-number {
+    position: absolute;
+    top: -25px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #FFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--dark-blue);
+    box-shadow: 0 1px 2px #d5d5d5;
+    z-index: 2;
+}
+
+.step-number--5 {
+    background-color: var(--primary-color);
+    color: #FFFF;
+}
+
+.step-card {
+    background-color: #FFFF;
+    border-radius: 20px;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    height: 100%;
+    padding-top: 35px;
+    /* Дополнительный отступ сверху для номера */
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.step-card--5 {
+    background-color: var(--primary-color);
+    color: #FFFF;
+}
+
+.step-title {
+    font-family: var(--font-main-bold);
+}
+
+/* Медиа-запросы для адаптивности */
+@media (min-width: 768px) {
+    .steps-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* Три колонки */
+        grid-template-rows: auto auto;
+        /* Два ряда */
+        gap: 40px;
+    }
+
+    /* Позиционируем карточку 4 справа, а карточку 5 слева */
+    .step-container:nth-child(4) {
+        grid-column: 3;
+        /* Было: 2 */
+        grid-row: 2;
+    }
+
+    .step-container:nth-child(5) {
+        grid-column: 2;
+        /* Было: 3 */
+        grid-row: 2;
+    }
+}
+
+@media (min-width: 992px) {
+    .steps-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+        /* Сохраняем три колонки в первом ряду */
+        gap: 50px;
+    }
+}
+
+/* ===== Section Mining Solutions ===== */
+
+.mining-solutions {
+    padding-bottom: 41px;
+}
+
+
+.mining-solutions__slider .slider__item {
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.mining-solutions__slider .slider__content {
+    padding: 20px 15px;
+}
+
+.mining-solutions__slider .slider__title {
+    font-family: var(--font-heading);
+}
+
+.mining-solutions__image {
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+    .mining-solutions__slider .slider__container {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        padding-bottom: 20px;
+        width: 100%;
+        /* Явно указываем ширину */
+    }
+
+    .mining-solutions__slider .slider__item {
+        flex: 0 0 100%;
+        min-width: 100%;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: row;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        margin-right: 0;
+        /* Убираем правый отступ */
+    }
+
+    .mining-solutions__slider .slider__image {
+        flex: 0 0 40%;
+        min-height: 100%;
+    }
+
+    .mining-solutions__slider .slider__image img {
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .mining-solutions__slider .slider__content {
+        flex: 0 0 60%;
+        padding: 25px;
+    }
+
+    /* Улучшаем видимость элементов навигации */
+    .mining-solutions__slider .slider__controls {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    .mining-solutions__slider .slider__dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .mining-solutions__slider .slider__dot {
+        width: 10px;
+        height: 10px;
+        background-color: #D9D9D9;
+    }
+
+    .mining-solutions__slider .slider__dot.active {
+        background-color: var(--acent-blue);
+    }
+}
+
+@media (min-width: 992px) {
+    .mining-solutions__slider .slider__container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        overflow: visible;
+        scroll-snap-type: none;
+        -webkit-overflow-scrolling: auto;
+        scrollbar-width: auto;
+        -ms-overflow-style: auto;
+    }
+
+    .mining-solutions__slider .slider__item {
+        flex: none;
+        min-width: unset;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    /* Скрываем элементы управления слайдером в режиме сетки */
+    .mining-solutions__slider .slider__controls {
+        display: none;
+    }
+}
+
+/* Слайдер */
+
+.stats__slider .slider__container {
+    gap: 20px;
+    padding: 5px;
+}
+
+.stats__slider .slider__item {
+    flex: 0 0 100%;
+    min-width: 100%;
+    padding: 5px;
+}
+
+.stats__slider {
+    margin-top: 20px;
+}
+
+.slider {
+    position: relative;
+}
+
+.slider__container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+}
+
+.slider__container::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Opera */
+}
+
+.slider__item {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.slider__item img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.slider__controls {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.slider__dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.slider__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #D9D9D9;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.slider__dot.active {
+    background-color: var(--acent-blue);
+}
+
+@media (min-width: 768px) {
+    .stats__slider .slider__item {
+        flex: 0 0 calc(50% - 10px);
+        min-width: calc(50% - 10px);
+    }
+
+    /* Скрываем все точки, кроме первых пяти */
+    .slider__dots .slider__dot:nth-child(n+6) {
+        display: none;
+    }
+
+}
+
+/* Стили для десктопов (три слайда) */
+@media (min-width: 992px) {
+    .stats__slider .slider__item {
+        flex: 0 0 calc(33.333% - 14px);
+        min-width: calc(33.333% - 14px);
+    }
+
+    .stats__slider .slider__container {
+        overflow-x: hidden;
+        /* Опционально: можно скрыть скролл на десктопах */
+    }
+
+    /* Скрываем все точки, кроме первых четырех */
+    .slider__dots .slider__dot:nth-child(n+5) {
+        display: none;
+    }
+}
+
+/* Стили для мобильных устройств (до 768px) */
+@media (max-width: 767px) {
+    .stats__slider .slider__dots {
+        display: flex;
+    }
+}
+
+/* ===== Section How To ===== */
+
+.steps-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* На мобильных - один столбец */
+    gap: 40px;
+    /* Увеличиваем отступ между карточками */
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.step-container {
+    position: relative;
+    width: 100%;
+}
+
+.step-number {
+    position: absolute;
+    top: -25px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #FFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--text-dark);
+    box-shadow: 0 1px 2px #d5d5d5;
+    z-index: 2;
+}
+
+.step-number--5 {
+    background-color: var(--acent-blue);
+    color: #FFFF;
+}
+
+.step-card {
+    background-color: #FFFF;
+    border-radius: 20px;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: var(--shadow-card);
+    width: 100%;
+    height: 100%;
+    padding-top: 35px;
+}
+
+.step-card--5 {
+    background-color: var(--acent-blue);
+    color: #FFFF;
+}
+
+.step-title {
+    font-family: var(--font-main-bold);
+}
+
+@media (min-width: 768px) {
+    .steps-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* Три колонки */
+        grid-template-rows: auto auto;
+        /* Два ряда */
+        gap: 40px;
+    }
+
+    /* Позиционируем карточку 4 справа, а карточку 5 слева */
+    .step-container:nth-child(4) {
+        grid-column: 3;
+        /* Было: 2 */
+        grid-row: 2;
+    }
+
+    .step-container:nth-child(5) {
+        grid-column: 2;
+        /* Было: 3 */
+        grid-row: 2;
+    }
+}
+
+@media (min-width: 992px) {
+    .steps-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+        /* Сохраняем три колонки в первом ряду */
+        gap: 50px;
+    }
+
+    .step-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* ===== Section Benefits ===== */
+
+.benefits .slider__content {
+    padding: 25px;
+}
+
+.benefits {
+    padding-bottom: 41px;
+}
+
+.benefits__item {
+    display: flex;
+    align-items: flex-start;
+    background-color: var(--text-dark);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.benefits__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: var(--acent-blue);
+    color: var(--text-light);
+    border-radius: 50%;
+    margin-right: 15px;
+    font-weight: 700;
+}
+
+.benefits__text {
+    font-size: 14px;
+    color: var(--text-dark);
+}
+
+.benefits__slider .slider__item {
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.benefits__slider .slider__title {
+    font-family: var(--font-main-bold);
+}
+
+@media (min-width: 768px) {
+
+    .benefits .slider__content {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+
+    .benefits .slider__container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        overflow: visible;
+        scroll-snap-type: none;
+        -webkit-overflow-scrolling: auto;
+        scrollbar-width: auto;
+        -ms-overflow-style: auto;
+    }
+
+    .benefits .slider__item {
+        flex: 0 0 auto;
+        min-width: unset;
+        width: 100%;
+        scroll-snap-align: unset;
+        background-color: #FFFF;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+
+    .benefits .slider__content svg {
+        flex: 0 0 auto;
+        margin-right: 15px;
+        margin-top: 2px;
+        /* Небольшой отступ для выравнивания с заголовком */
+    }
+
+    .benefits .slider__title {
+        flex: 1;
+        margin: 0;
+        padding-top: 5px;
+        font-size: 14px;
+    }
+
+    .benefits .slider__text {
+        flex-basis: 100%;
+        margin-top: 15px;
+        font-size: 13px;
+    }
+
+    /* Скрываем элементы управления слайдером */
+    .benefits .slider__controls {
+        display: none;
+    }
+}
+
+@media (min-width: 992px) {
+    .benefits .slider__container {
+        grid-template-columns: repeat(2, 1fr);
+        /* Оставляем две колонки для лучшей читаемости */
+    }
+
+    .slider__text {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 1200px) {
+
+    .benefits .slider__container {
+        grid-template-columns: repeat(3, 1fr);
+        /* Три колонки для десктопов */
+    }
+
+    .benefits .slider__title {
+        font-size: 18px;
+    }
+
+    .benefits .slider__text {
+        font-size: 15px;
+
+    }
+
+}
+
+
+/* ===== Section FAQ ===== */
+
+.faq {
+    padding-bottom: 41px;
+    /* background-color: var(--background-body); */
+}
+
+.faq hr {
+    border-top: 1px solid #181C25;
+    margin: 0;
+}
+
+.accordion {
+    margin-top: 30px;
+}
+
+.accordion__item {
+    /* background-color: #FFFFFF;
+    border-radius: 20px; */
+
+    /* overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); */
+    transition: all 0.3s ease;
+}
+
+.accordion__item:hover {
+    transform: translateY(-2px);
+    /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); */
+}
+
+.accordion__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.accordion__title {
+    font-family: var(--font-main-bold);
+    color: var(--text-dark);
+    transition: color 0.3s ease;
+}
+
+.accordion__icon {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.icon-line {
+    position: absolute;
+    background-color: var(--acent-blue);
+    transition: transform 0.3s ease;
+}
+
+.icon-line--1 {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
+}
+
+.icon-line--2 {
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%);
+}
+
+.accordion__item.active .icon-line--2 {
+    transform: translateX(-50%) rotate(90deg);
+    opacity: 0;
+}
+
+.accordion__item.active .accordion__icon {
+    transform: rotate(45deg);
+}
+
+.accordion__item.active .icon-line--2 {
+    transform: translateX(-50%);
+    /* Убираем дополнительный поворот */
+    opacity: 1;
+    /* Сохраняем видимость */
+}
+
+.accordion__content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease;
+    margin-bottom: 20px;
+    margin-bottom: 0px;
+}
+
+.accordion__item.active .accordion__content {
+    padding: 0 0 20px;
+}
+
+.accordion__content p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-dark);
+    opacity: 0.8;
+}
+
+.accordion__item.active .accordion__title {
+    color: var(--acent-blue);
+}
+
+@media (min-width: 768px) {
+    .accordion__title {
+        font-size: 18px;
+    }
+
+    .accordion__content p {
+        font-size: 17px;
+    }
+}
+
+/* ===== Section Contact ===== */
+
+.contact {
+    padding-bottom: 41px;
+}
+
+/* Стили для форм на странице mining-investicii */
+.mining-investicii .contact-form {
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+    background-image: url("/mining-investicii/images/contact_form_background.png");
+    padding: 17px;
+
+}
+
+@media (min-width: 768px){
+    .mining-investicii .contact-form {
+        padding: 30px;
+    }
+}
+
+@media (min-width: 1200px){
+    .mining-investicii .contact-form {
+        padding: 50px;
+    }
+}
+
+.mining-investicii .contact-form__title {
+    color: var(--text-light);
+    font-family: var(--font-main-bold);
+}
+
+.mining-investicii .contact-form__text {
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.mining-investicii .contact-form__input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+    border: 1px solid var(--text-light);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-light);
+}
+
+.mining-investicii .contact-form__input::placeholder {
+    color: var(--text-light);
+}
+
+.mining-investicii .contact-form__text a,
+.mining-investicii .privacy-policy {
+    color: var(--text-light);
+    font-size: 10px;
+    padding: 10px 5px 0;
+}
+
+.mining-investicii .contact-form .btn {
+    color: var(--text-dark);
+    background-color: var(--background-body);
+    width: 100%;
+}
+
+.contact img {
+    width: 100%;
+    border-radius: var(--border-radius-20) var(--border-radius-20) 0 0;
+}
+
+.offer__wrapper {
+    background-color: #5359ff;
+    padding: 20px 20px 0;
+
+}
+
+.offer_text__title,
+.offer_text__text {
+    color: var(--text-light);
+}
+
+.offer_text__title {
+    font-family: var(--font-main-bold);
+}
+
+@media (min-width: 768px) {
+    .contact-form-wrapper {
+        display: flex;
+        flex-direction: row;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        background-color: var(--blue);
+    }
+
+    .contact__content {
+        flex: 0 0 50%;
+        position: relative;
+    }
+
+    .contact__content img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 0;
+    }
+
+    .contact-form {
+        flex: 0 0 50%;
+        border-radius: 0;
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .contact-form__input {
+        margin-bottom: 20px;
+    }
+
+    .contact-form .btn {
+        margin-bottom: 15px;
+        width: auto;
+    }
+}
+
+@media (min-width: 992px) {
+    .contact-form-wrapper {
+        border-radius: 30px;
+        margin: 0 auto;
+    }
+
+    .contact__content {
+        flex: 0 0 55%;
+    }
+
+    .contact-form {
+        flex: 0 0 45%;
+        padding: 40px;
+    }
+}
+
+/* ===== Section Modal Contact Form ===== */
+
+.contact-form-wrapper .contact-form__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Стили для обертки всплывающей формы */
+.mining-investicii .popup-form-wrapper {
+    backdrop-filter: blur(5px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.mining-investicii .popup-form-wrapper.open {
+    display: flex;
+}
+
+.mining-investicii .popup-form-content {
+    background-color: #fff;
+    padding: 2px;
+    border-radius: var(--border-radius-20);
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.mining-investicii .popup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: var(--border-radius-20);
+}
+
+.mining-investicii .popup-form__close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ffffff;
+    z-index: 100;
+}
+
+.mining-investicii .popup-form__close-btn span::before,
+.mining-investicii .popup-form__close-btn span::after {
+    background-color: var(--text-light);
+}
+
+/* Footer стили удалены - используются из main.css */
+
+/* ===== Modal-Popup ===== */
+
+/* Стили для попапа */
+.mining-investicii .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mining-investicii .modal-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mining-investicii .modal {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.mining-investicii .modal-overlay.is-visible .modal {
+    transform: scale(1);
+}
+
+.mining-investicii .modal__close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    color: #aaa;
+    cursor: pointer;
+    padding: 0;
+}
+
+.mining-investicii .modal__close-btn:hover {
+    color: #333;
+}
+
+.mining-investicii .modal__icon {
+    margin-bottom: 15px;
+}
+
+.mining-investicii .modal__icon svg {
+    display: inline-block;
+}
+
+.mining-investicii .modal__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+    font-family: 'Rawline', sans-serif;
+}
+
+.mining-investicii .modal__text {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 0;
+    font-family: 'Rawline', sans-serif;
+}
+
+.form-check-label{
+    color: #FFFFFF;
+}

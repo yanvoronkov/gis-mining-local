@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yml_catalog date="2025-10-15 17:46">
+  <shop>
+    <name>gis-mining.ru</name>
+    <company>GIS MINING</company>
+    <url>https://gis-mining.ru</url>
+    <platform>1C-Bitrix</platform>
+
+    <currencies>
+      <currency id="RUB" rate="1"/>
+    </currencies>
+
+    <categories>
+      <category id="100000000">Основной раздел каталога</category>
+    </categories>
+
+    <offers>
+      <offer id="99609" available="true">
+        <url>https://gis-mining.ru/catalog/videocard/nvidia-h200/</url>
+        <price>2900000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>100000000</categoryId>
+        <collectionId>c1</collectionId>
+        <picture>https://gis-mining.ru/upload/iblock/ead/nb91m2wi3wus6sslw5rvsbv7vvyhqrer.png</picture>
+        <vendor>NVIDIA</vendor>
+        <name>NVIDIA H200</name>
+        <description>Видеокарта NVIDIA H200 NVL 141GB — мощный ускоритель для задач искусственного интеллекта...</description>
+        <param name="Архитектура">Hopper (обновл.)</param>
+        <param name="Память (тип/объём)">HBM3e / 141 GB</param>
+        <param name="Пропускная способность (GB/s)">~4 800 GB/s</param>
+        <param name="Производительность FP16 / FP8 (TFLOPS)">FP8 = 1000+ TFLOPS</param>
+        <param name="Интерфейс">SXM5</param>
+        <param name="Энергопотребление (Вт)">~700 Вт</param>
+        <param name="Основное применение">Обучение сверхбольших моделей (GPT-4, Claude 3)</param>
+      </offer>
+
+      <offer id="99610" available="true">
+        <url>https://gis-mining.ru/catalog/videocard/nvidia-a100-80gb/</url>
+        <price>720000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>100000000</categoryId>
+        <collectionId>c1</collectionId>
+        <picture>https://gis-mining.ru/upload/iblock/d39/k1d62xtbajpfuvgpsmrw53rz9j5f63l9.png</picture>
+        <vendor>NVIDIA</vendor>
+        <name>NVIDIA A100 80GB</name>
+        <description>Видеокарта NVIDIA A100 80GB PCIe OEM — проверенный ускоритель...</description>
+        <param name="Архитектура">Ampere</param>
+        <param name="Память (тип/объём)">HBM2e / 80 GB</param>
+        <param name="Пропускная способность (GB/s)">~2 039 GB/s</param>
+        <param name="Производительность FP16 / FP8 (TFLOPS)">FP16 = 312, BF16 = 312 TFLOPS</param>
+        <param name="Интерфейс">PCIe / SXM4</param>
+        <param name="Энергопотребление (Вт)">250–400 Вт</param>
+        <param name="Основное применение">Обучение и инференс LLM, HPC</param>
+      </offer>
+
+      <offer id="99611" available="true">
+        <url>https://gis-mining.ru/catalog/videocard/nvidia-h100/</url>
+        <price>2450000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>100000000</categoryId>
+        <collectionId>c1</collectionId>
+        <picture>https://gis-mining.ru/upload/iblock/128/wh9k0m807zc9x718l139qlc27zsug75f.png</picture>
+        <vendor>NVIDIA</vendor>
+        <name>NVIDIA H100</name>
+        <description>Видеокарта NVIDIA H100 80GB PCIe OEM — ускоритель нового поколения...</description>
+        <param name="Архитектура">Hopper</param>
+        <param name="Память (тип/объём)">HBM3 / 80 GB</param>
+        <param name="Пропускная способность (GB/s)">~3 350 GB/s</param>
+        <param name="Производительность FP16 / FP8 (TFLOPS)">FP16 = 500, FP8 = 1000 TFLOPS</param>
+        <param name="Интерфейс">PCIe / SXM5</param>
+        <param name="Энергопотребление (Вт)">350–700 Вт</param>
+        <param name="Основное применение">Обучение LLM, ИИ-инфраструктура, DGX/HGX</param>
+      </offer>
+
+      <offer id="99612" available="true">
+        <url>https://gis-mining.ru/catalog/videocard/nvidia-rtx-4090/</url>
+        <price>220000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>100000000</categoryId>
+        <collectionId>c1</collectionId>
+        <picture>https://gis-mining.ru/upload/iblock/dfe/aqthjr9i7vet7bifeuy256xtyysum2xg.png</picture>
+        <vendor>NVIDIA</vendor>
+        <name>NVIDIA RTX 4090</name>
+        <description>Видеокарта NVIDIA GeForce RTX 4090 24GB — мощь нового уровня...</description>
+        <param name="Архитектура">Ada Lovelace</param>
+        <param name="Память (тип/объём)">GDDR6X / 24 GB</param>
+        <param name="Пропускная способность (GB/s)">~1 008 GB/s</param>
+        <param name="Производительность FP16 / FP8 (TFLOPS)">FP16 = 165 TFLOPS (Tensor)</param>
+        <param name="Интерфейс">PCIe Gen 4</param>
+        <param name="Энергопотребление (Вт)">450 Вт</param>
+        <param name="Основное применение">Локальный инференс, Stable Diffusion, видео</param>
+      </offer>
+
+      <offer id="99613" available="true">
+        <url>https://gis-mining.ru/catalog/videocard/nvidia-rtx-6000-ada-48-gb/</url>
+        <price>720000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>100000000</categoryId>
+        <collectionId>c1</collectionId>
+        <picture>https://gis-mining.ru/upload/iblock/5d4/69wfig8xu82qozd8q0bg9fp8quiypo1j.png</picture>
+        <vendor>NVIDIA</vendor>
+        <name>NVIDIA RTX 6000 Ada (48 GB)</name>
+        <description>Видеокарта NVIDIA RTX 6000 Ada 48GB — профессиональная мощь...</description>
+        <param name="Архитектура">Ada Lovelace (Pro)</param>
+        <param name="Память (тип/объём)">GDDR6 ECC / 48 GB</param>
+        <param name="Пропускная способность (GB/s)">~960 GB/s</param>
+        <param name="Производительность FP16 / FP8 (TFLOPS)">FP16 = 181 TFLOPS</param>
+        <param name="Интерфейс">PCIe Gen 4</param>
+        <param name="Энергопотребление (Вт)">300 Вт</param>
+        <param name="Основное применение">Workstation-ИИ, 3D-рендер, видео-пост</param>
+      </offer>
+
+      <offer id="99615" available="true">
+        <url>https://gis-mining.ru/catalog/videocard/nvidia-rtx-5090/</url>
+        <price>280000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>100000000</categoryId>
+        <collectionId>c1</collectionId>
+        <picture>https://gis-mining.ru/upload/iblock/d90/p2cshabl0hilm3r4o2hnqb7oww8wpx3r.png</picture>
+        <vendor>NVIDIA</vendor>
+        <name>NVIDIA RTX 5090</name>
+        <description>Видеокарта NVIDIA GeForce RTX 5090 ROG Strix 32GB — инженерный шедевр...</description>
+        <param name="Архитектура">Blackwell</param>
+        <param name="Память (тип/объём)">GDDR7 / 32 GB</param>
+        <param name="Пропускная способность (GB/s)">~1 532 GB/s</param>
+        <param name="Производительность FP16 / FP8 (TFLOPS)">FP16 ≈ 250 TFLOPS (оценка)</param>
+        <param name="Интерфейс">PCIe Gen 5</param>
+        <param name="Энергопотребление (Вт)">~600 Вт</param>
+        <param name="Основное применение">Будущие ИИ-станции, инференс LLM</param>
+      </offer>
+
+      <offer id="99616" available="true">
+        <url>https://gis-mining.ru/catalog/videocard/amd-instinct-mi250x/</url>
+        <price>3200000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>100000000</categoryId>
+        <collectionId>c1</collectionId>
+        <picture>https://gis-mining.ru/upload/iblock/3bb/1njwavt1tqiuurdiotn7vk0mhzktlkch.png</picture>
+        <vendor>AMD</vendor>
+        <name>AMD Instinct MI250X</name>
+        <param name="Архитектура">CDNA 2</param>
+        <param name="Память (тип/объём)">HBM2e / 128 GB</param>
+        <param name="Пропускная способность (GB/s)">~3 276 GB/s</param>
+        <param name="Производительность FP16 / FP8 (TFLOPS)">FP16 = 383 TFLOPS</param>
+        <param name="Интерфейс">OAM / SXM</param>
+        <param name="Энергопотребление (Вт)">~560 Вт</param>
+        <param name="Основное применение">Обучение ИИ, HPC (альтернатива A100)</param>
+      </offer>
+
+      <offer id="99617" available="true">
+        <url>https://gis-mining.ru/catalog/videocard/amd-instinct-mi300x/</url>
+        <price>5550000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>100000000</categoryId>
+        <collectionId>c1</collectionId>
+        <picture>https://gis-mining.ru/upload/iblock/26b/0ddhmfwkq5ca13m9lhdivt342pqp05op.png</picture>
+        <vendor>AMD</vendor>
+        <name>AMD Instinct MI300X</name>
+        <param name="Архитектура">CDNA 3</param>
+        <param name="Память (тип/объём)">HBM3 / 192 GB</param>
+        <param name="Пропускная способность (GB/s)">~5 300 GB/s</param>
+        <param name="Производительность FP16 / FP8 (TFLOPS)">FP8 = 1300 TFLOPS</param>
+        <param name="Интерфейс">OAM</param>
+        <param name="Энергопотребление (Вт)">~750 Вт</param>
+        <param name="Основное применение">LLM тренировка, аналог H200</param>
+      </offer>
+
+      <offer id="99618" available="true">
+        <url>https://gis-mining.ru/catalog/videocard/nvidia-v100-32-gb/</url>
+        <price>420000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>100000000</categoryId>
+        <collectionId>c1</collectionId>
+        <picture>https://gis-mining.ru/upload/iblock/b91/zv160yk0t0mqwlh4te23rb68hkuedly4.png</picture>
+        <vendor>NVIDIA</vendor>
+        <name>NVIDIA V100 (32 GB)</name>
+        <param name="Архитектура">Volta</param>
+        <param name="Память (тип/объём)">HBM2 / 32 GB</param>
+        <param name="Пропускная способность (GB/s)">~900 GB/s</param>
+        <param name="Производительность FP16 / FP8 (TFLOPS)">FP16 = 125 TFLOPS</param>
+        <param name="Интерфейс">PCIe / SXM2</param>
+        <param name="Энергопотребление (Вт)">250–300 Вт</param>
+      </offer>
+    </offers>
+
+    <collections>
+      <collection id="c1">
+        <url>https://gis-mining.ru/catalog/videocard/</url>
+        <picture>https://gis-mining.ru/upload/dev2fun.imagecompress/webp/iblock/e6b/n0gw636w88zp2bgnkmra1k1q6440y620.webp</picture>
+        <name>Купить видеокарты NVIDIA, AMD для ИИ и Big Data</name>
+        <description>Подходит под любые задачи в AI/ML, big data и моделировании</description>
+      </collection>
+    </collections>
+
+  </shop>
+</yml_catalog>

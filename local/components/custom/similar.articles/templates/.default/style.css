@@ -1,0 +1,188 @@
+/*!* ========================================================================*/
+/*   Компонент "Читайте также" (Похожие статьи)*/
+/*   Использует классы из старого кода + адаптивность слайдера/грида*/
+/*   ======================================================================== *!*/
+
+/*!* Основной контейнер - отображаем всегда (в отличие от старого кода) *!*/
+/*.page-blog-detail__similar-articles {*/
+/*    display: flex !important; !* !important чтобы переопределить display: none из main.css *!*/
+/*    flex-direction: column;*/
+/*    gap: 30px;*/
+/*    margin-bottom: 50px;*/
+/*}*/
+
+
+/*@media (min-width: 992px) {*/
+/*    .page-blog-detail__similar-articles {*/
+/*        gap: 40px;*/
+/*    }*/
+
+/*    .page-blog-detail__similar-articles .native-slider__wrapper {*/
+/*        overflow-x: visible;*/
+/*    }*/
+/*}*/
+
+/*@media (min-width: 1200px) {*/
+/*    .page-blog-detail__similar-articles {*/
+/*        margin-bottom: 80px;*/
+/*    }*/
+/*}*/
+
+/*@media (min-width: 1440px) {*/
+/*    .page-blog-detail__similar-articles {*/
+/*        margin-bottom: 100px;*/
+/*    }*/
+/*}*/
+
+/*!* Заголовок - используем оригинальный класс *!*/
+/*.page-blog-detail__similar-title {*/
+/*    font-family: "DrukTextWideCyr-Medium", sans-serif;*/
+/*    font-size: 24px;*/
+/*}*/
+
+/*@media (min-width: 1200px) {*/
+/*    .page-blog-detail__similar-title {*/
+/*        font-size: 32px;*/
+/*        text-transform: uppercase;*/
+/*    }*/
+/*}*/
+
+/*@media (min-width: 1440px) {*/
+/*    .page-blog-detail__similar-title {*/
+/*        font-size: 48px;*/
+/*    }*/
+/*}*/
+
+/*!* Обертка слайдера/грида - добавлена адаптивность *!*/
+/*.page-blog-detail__similar-grid {*/
+/*    position: relative;*/
+/*    display: block !important; !* Переопределяем старые стили из main.css *!*/
+/*    width: 100%;*/
+/*}*/
+
+/*!* Native slider wrapper - на мобильных это слайдер *!*/
+/*.page-blog-detail__similar-grid .native-slider__wrapper {*/
+/*    display: flex;*/
+/*    overflow-x: auto;*/
+/*    scroll-snap-type: x mandatory;*/
+/*    scroll-behavior: smooth;*/
+/*    -webkit-overflow-scrolling: touch;*/
+/*    scrollbar-width: none;*/
+/*    gap: 15px;*/
+/*    padding-inline: 8.3333333333%;*/
+/*    touch-action: pan-x; !* Разрешаем только горизонтальный скролл *!*/
+/*    align-items: stretch; !* Выравниваем карточки по высоте *!*/
+/*}*/
+
+/*.page-blog-detail__similar-grid .native-slider__wrapper::-webkit-scrollbar {*/
+/*    display: none;*/
+/*}*/
+
+/*!* Ссылка на статью - слайд на мобильных *!*/
+/*.page-blog-detail__similar-card-link {*/
+/*    display: flex; !* Flex для выравнивания по высоте *!*/
+/*    flex-direction: column;*/
+/*    text-decoration: none;*/
+/*    color: inherit;*/
+/*    flex-shrink: 0;*/
+/*    box-sizing: border-box;*/
+/*    min-width: 83.33%;*/
+/*    scroll-snap-align: center;*/
+/*    align-self: stretch; !* Растягиваем на всю высоту родителя *!*/
+/*    cursor: pointer;*/
+/*    pointer-events: auto;*/
+/*    -webkit-user-select: none;*/
+/*    user-select: none;*/
+/*    -webkit-tap-highlight-color: transparent;*/
+/*    touch-action: manipulation; !* Обрабатываем клики правильно на тач-устройствах *!*/
+/*}*/
+
+/*!* Слайд - дополнительные стили для корректной работы *!*/
+/*.page-blog-detail__similar-card-link.native-slider__slide {*/
+/*    flex-shrink: 0;*/
+/*}*/
+
+/*!* Карточка внутри ссылки - растягиваем на всю высоту *!*/
+/*.page-blog-detail__similar-card-link .card-blog {*/
+/*    height: 100%;*/
+/*    flex: 1; !* Растягиваем на всю доступную высоту *!*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    pointer-events: none; !* Отключаем события на карточке, чтобы клик обрабатывала ссылка *!*/
+/*}*/
+
+/*!* Контент карточки - растягиваем для равномерного распределения *!*/
+/*.page-blog-detail__similar-card-link .card-blog__content {*/
+/*    flex: 1;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    min-height: 0; !* Важно для корректной работы flex с overflow *!*/
+/*}*/
+
+/*!* Обрезание текста в анонсе карточки с троеточием *!*/
+/*.page-blog-detail__similar-card-link .card-blog__excerpt {*/
+/*    display: -webkit-box;*/
+/*    -webkit-line-clamp: 3; !* Количество строк *!*/
+/*    -webkit-box-orient: vertical;*/
+/*    overflow: hidden;*/
+/*    text-overflow: ellipsis;*/
+/*	font-size: 14px;*/
+/*}*/
+
+/*!* Все вложенные элементы не перехватывают клик *!*/
+/*.page-blog-detail__similar-card-link .card-blog__image-wrap,*/
+/*.page-blog-detail__similar-card-link .card-blog__image,*/
+/*.page-blog-detail__similar-card-link .card-blog__title,*/
+/*.page-blog-detail__similar-card-link .card-blog__excerpt,*/
+/*.page-blog-detail__similar-card-link .card-blog__tag,*/
+/*.page-blog-detail__similar-card-link .card-blog__date {*/
+/*    pointer-events: none; !* События будут обрабатываться родительской ссылкой *!*/
+/*}*/
+
+/*!* Грид - от 768px (3 колонки) *!*/
+/*@media (min-width: 768px) {*/
+/*    .page-blog-detail__similar-grid .native-slider__wrapper {*/
+/*        display: grid;*/
+/*        grid-template-columns: repeat(3, 1fr);*/
+/*        transform: none !important;*/
+/*        transition: none !important;*/
+/*        padding-bottom: 0;*/
+/*        align-items: stretch;*/
+/*        padding-inline: 0;*/
+/*        gap: 10px;*/
+/*        overflow: visible;*/
+/*    }*/
+
+/*    .page-blog-detail__similar-card-link {*/
+/*        min-width: auto;*/
+/*    }*/
+/*}*/
+
+/*!* Грид - от 1200px (4 колонки) *!*/
+/*@media (min-width: 1200px) {*/
+/*    .page-blog-detail__similar-grid .native-slider__wrapper {*/
+/*        gap: 20px;*/
+/*        grid-template-columns: repeat(4, 1fr);*/
+/*    }*/
+/*}*/
+
+/*!* Грид - от 1440px (5 колонок) *!*/
+/*@media (min-width: 1440px) {*/
+/*    .page-blog-detail__similar-grid .native-slider__wrapper {*/
+/*        gap: 20px;*/
+/*        grid-template-columns: repeat(5, 1fr);*/
+/*    }*/
+/*}*/
+
+/*!* Навигация и пагинация слайдера - скрываем *!*/
+/*.page-blog-detail__similar-grid .native-slider__nav,*/
+/*.page-blog-detail__similar-grid .native-slider__pagination {*/
+/*    display: none !important; !* !important для переопределения inline-стилей *!*/
+/*}*/
+
+/*.page-blog-detail__similar-grid .slider-button-next,*/
+/*.page-blog-detail__similar-grid .slider-button-prev,*/
+/*.page-blog-detail__similar-grid .similar-slider__pagination {*/
+/*    display: none !important; !* Дополнительное скрытие для всех вариантов селекторов *!*/
+/*}*/
+

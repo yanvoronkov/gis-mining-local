@@ -1,0 +1,69 @@
+/* === Мобильное плавающее меню GIS Mining === */
+
+/* Скрываем по умолчанию */
+.mobile-bottom-menu {
+  display: none;
+}
+
+/* Показываем только на мобильных */
+@media (max-width: 768px) {
+  .mobile-bottom-menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 16px; /* эффект парения */
+    left: 12px;
+    right: 12px;
+    height: 64px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+    padding: 0 10px;
+    font-family: inherit;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .mobile-bottom-menu .menu-item {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+  }
+
+  .mobile-bottom-menu .icon {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 4px;
+  }
+
+  .mobile-bottom-menu .icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: filter 0.25s ease, transform 0.25s ease;
+  }
+
+  .mobile-bottom-menu .menu-item:hover .icon img,
+  .mobile-bottom-menu .menu-item.active .icon img {
+    transform: scale(1.15);
+  }
+
+  .mobile-bottom-menu .menu-item:hover,
+  .mobile-bottom-menu .menu-item.active {
+    color: #5B61FF;
+    transform: translateY(-2px);
+  }
+
+  /* Отступ под меню */
+  body {
+    padding-bottom: 90px;
+  }
+}

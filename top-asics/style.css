@@ -1,0 +1,232 @@
+/* ====== ЖЁСТКАЯ СЕТКА ДЛЯ TOP-ASICС ====== */
+.page-razmeschenie .hero-section.container {
+  display: block !important;
+}
+
+.page-razmeschenie .hero-section__grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important; /* 50/50 */
+  align-items: start !important;
+  column-gap: 60px !important;
+  width: 100% !important;
+}
+
+/* гарантируем, что в сетке только 2 колонки */
+.page-razmeschenie .hero-section__grid > * {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  float: none !important;
+}
+
+/* ====== ЛЕВАЯ КОЛОНКА: текст + форма ====== */
+.page-razmeschenie .hero-section__left {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 18px !important;
+}
+
+.page-razmeschenie .hero-section__title {
+  font-size: 38px !important;
+  line-height: 1.2 !important;
+  margin: 0 0 6px !important;
+  font-family: "DrukTextWideCyr-Medium", sans-serif !important;
+}
+
+.page-razmeschenie .hero-section__rate {
+  background: #f5f5f5 !important;
+  border-radius: 10px !important;
+  padding: 20px !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+}
+
+.page-razmeschenie .hero-section__note {
+  color: #333 !important;
+  font-size: 14px !important;
+}
+
+.page-razmeschenie .hero-section__left .form-input {
+  width: 320px !important;
+  max-width: 100% !important;
+}
+
+.page-razmeschenie .hero-section__left .contact-form-submit-btn {
+  margin-top: 10px !important;
+  transition: 0.3s ease !important;
+}
+
+.page-razmeschenie .hero-section__left .contact-form-submit-btn:hover {
+  background-color: #4a4ad8 !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ====== ПРАВАЯ КОЛОНКА: картинка + мессенджеры ====== */
+.page-razmeschenie .hero-section__right {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important; /* выравнивание по левому краю */
+  justify-content: flex-start !important;
+  gap: 18px !important;
+}
+
+.page-razmeschenie .hero-section__image {
+  text-align: left !important;
+  order: 1 !important; /* на ПК фото идёт первым */
+}
+
+.page-razmeschenie .hero-section__image img {
+  width: 100% !important;
+  max-width: 520px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .08) !important;
+  margin: 0 0 10px 0 !important;
+}
+
+/* ====== МЕССЕНДЖЕРЫ ====== */
+.page-razmeschenie .contact-messengers {
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  text-align: left !important;
+  background: transparent !important;
+  order: 2 !important; /* на ПК мессенджеры идут после фото */
+}
+
+.page-razmeschenie .contact-messengers__title {
+  margin: 8px 0 14px !important;
+  font-size: 18px !important;
+  line-height: 1.3 !important;
+  text-transform: uppercase !important;
+  font-family: "DrukTextWideCyr-Medium", sans-serif !important;
+}
+
+.page-razmeschenie .contact-messengers__buttons {
+  display: flex !important;
+  justify-content: flex-start !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  margin-bottom: 14px !important;
+}
+
+.page-razmeschenie .contact-messengers__btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 12px 22px !important;
+  border-radius: 100px !important;
+  font-size: 14px !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  transition: 0.3s ease !important;
+}
+
+.page-razmeschenie .contact-messengers__btn--whatsapp {
+  background: #25D366 !important;
+}
+
+.page-razmeschenie .contact-messengers__btn--whatsapp:hover {
+  background: #1eb854 !important;
+  transform: translateY(-2px) !important;
+}
+
+.page-razmeschenie .contact-messengers__btn--telegram {
+  background: #0088cc !important;
+}
+
+.page-razmeschenie .contact-messengers__btn--telegram:hover {
+  background: #007ab8 !important;
+  transform: translateY(-2px) !important;
+}
+
+.page-razmeschenie .contact-messengers__phone-text {
+  margin: 0 0 4px !important;
+  font-size: 15px !important;
+}
+
+.page-razmeschenie .contact-messengers__phone a {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #000 !important;
+  text-decoration: none !important;
+  transition: 0.3s ease !important;
+}
+
+.page-razmeschenie .contact-messengers__phone a:hover {
+  color: #00A147 !important;
+}
+
+/* ====== СБРОСЫ ====== */
+.page-razmeschenie .hero-section__aris,
+.page-razmeschenie .hero-section__video-wrapper,
+.page-razmeschenie .wrapper-video {
+  float: none !important;
+  width: 100% !important;
+  clear: both !important;
+}
+
+/* Основная сетка на ПК — grid */
+.page-razmeschenie .hero-section__grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  column-gap: 60px !important;
+  align-items: start !important;
+}
+
+/* Мобильная картинка скрыта на ПК */
+.hero-section__image--mobile { display: none !important; }
+/* Десктопная картинка видна на ПК */
+.hero-section__image--desktop { display: block !important; }
+
+/* === Адаптив === */
+@media (max-width: 991px) {
+  /* На мобильных убираем grid и делаем flex-колонку */
+  .page-razmeschenie .hero-section__grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  /* Показываем фото под заголовком */
+  .hero-section__image--mobile {
+    display: block !important;
+    text-align: center !important;
+  }
+
+  .hero-section__image--mobile img {
+    max-width: 340px !important;
+    width: 100% !important;
+    border-radius: 16px !important;
+  }
+
+  /* Прячем фото справа */
+  .hero-section__image--desktop {
+    display: none !important;
+  }
+}
+
+
+.contact-form-retarg {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  flex-wrap: wrap;
+  background-color: #ffff;
+}
+@media (min-width: 1440px) {
+  .contact-form-retarg {
+    flex-direction: row;
+    gap: 20px;
+  }
+}
+
+.contact-form-retarg .ret {
+  width: 100% !important;
+  padding: 12px 20px 17px;
+    box-sizing: border-box;
+    border: 1px solid rgba(19, 19, 21, 0.1);
+    border-radius: 73.59px;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: left;
+}

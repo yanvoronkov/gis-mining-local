@@ -1,0 +1,174 @@
+.crypto-embed-wrapper {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.crypto-embed-btn {
+    padding: 14px 30px;
+    background: #5b61ff;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.crypto-embed-btn:hover {
+    background: #464cff;
+}
+
+/* POPUP */
+.crypto-popup {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 9999999;
+}
+.crypto-popup__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(19, 19, 21, 0.55);
+    backdrop-filter: blur(3px);
+}
+.crypto-popup__window {
+    position: relative;
+    max-width: 650px;
+    width: 90%;
+    margin: 60px auto;
+    background: #FFFFFF;
+    border-radius: 26px;
+    padding: 32px 34px 34px;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.22);
+}
+.crypto-popup__close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    opacity: .5;
+}
+
+.crypto-embed-code {
+    width: 100%;
+    height: 140px;
+    margin-top: 18px;
+    border-radius: 14px;
+    border: 1px solid #d2d6e2;
+    padding: 14px;
+    resize: none;
+    font-size: 15px;
+    background: #f7f8fc;
+}
+
+.crypto-embed-copy-btn {
+    margin-top: 18px;
+    width: 100%;
+    padding: 14px;
+    background: #5b61ff;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 17px;
+}
+.crypto-embed-copy-btn:hover {
+    background: #464cff;
+}
+
+/* =========================================
+   Popup — общий контейнер
+========================================= */
+.crypto-popup {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 999999;
+}
+
+.crypto-popup__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(19, 19, 21, 0.55);
+    backdrop-filter: blur(3px);
+}
+
+.crypto-popup__window {
+    position: relative;
+    max-width: 650px;
+    width: 90%;
+    margin: 60px auto;
+    background: #FFFFFF;
+    border-radius: 26px;
+    padding: 32px 34px 34px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.22);
+    animation: cryptoPopupFade .25s ease-out;
+}
+
+@keyframes cryptoPopupFade {
+    from {opacity:0; transform:translateY(12px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+/* Кнопка закрытия */
+.crypto-popup__close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    opacity: .5;
+}
+
+.crypto-popup__close:hover {
+    opacity: 1;
+}
+
+/* Заголовок */
+.crypto-popup__title {
+    font-size: 30px;
+    font-weight: 700;
+    font-family: "DrukTextWideCyr-Medium", sans-serif;
+    margin-bottom: 14px;
+}
+
+/* Текст */
+.crypto-popup p {
+    font-size: 16px;
+}
+
+/* textarea */
+.crypto-embed-code {
+    width: 100%;
+    height: 140px;
+    margin-top: 18px;
+    border-radius: 14px;
+    border: 1px solid #d2d6e2;
+    padding: 14px;
+    resize: none;
+    font-size: 15px;
+    background: #f7f8fc;
+}
+
+/* Кнопка "Скопировать" */
+.crypto-embed-copy-btn {
+    margin-top: 18px;
+    width: 100%;
+    padding: 14px;
+    background: #5b61ff;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.crypto-embed-copy-btn:hover {
+    background: #464cff;
+}
+

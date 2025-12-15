@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>GIS Калькулятор майнинга</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+
+    ym(102682922, 'init', {webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/102682922" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+</head>
+<body>
+  <div class="app">
+
+    <!-- ЛОГО -->
+    <div class="logo-wrap">
+      <img src="https://gis-mining.ru/local/templates/main/assets/img/header/logo-wh-kv.svg"
+           alt="GIS Mining" />
+    </div>
+
+    <!-- Заголовок -->
+    <header class="header">
+      <div class="header-title">Калькулятор майнинга</div>
+      <div class="header-subtitle">Оценка доходности ASIC-оборудования</div>
+    </header>
+
+    <!-- ПЕРИОД + ВАЛЮТА -->
+    <section class="card card-controls">
+      <div class="segment-group">
+        <button class="segment-btn" id="btnPeriodDay" data-period="day">День</button>
+        <button class="segment-btn segment-btn--active" id="btnPeriodMonth" data-period="month">Месяц</button>
+        <button class="segment-btn" id="btnPeriodYear" data-period="year">Год</button>
+      </div>
+
+      <div class="segment-group" id="currencySelector">
+        <button class="segment-btn segment-btn--active" id="btnCurRub" data-currency="rub">₽</button>
+        <button class="segment-btn" id="btnCurUsd" data-currency="usd">$</button>
+        <button class="segment-btn" id="btnCurBtc" data-currency="btc">BTC</button>
+        <button class="segment-btn hidden" id="btnCurLtc" data-currency="ltc">LTC</button>
+        <button class="segment-btn hidden" id="btnCurDoge" data-currency="doge">DOGE</button>
+      </div>
+    </section>
+
+    <!-- ФИЛЬТР КРИПТЫ -->
+    <div class="card">
+      <label class="card-label">Добываемая криптовалюта</label>
+
+      <div class="crypto-filter">
+        <button class="crypto-btn active" data-crypto="all">Все криптовалюты</button>
+        <button class="crypto-btn" data-crypto="BTC">💲 BTC</button>
+        <button class="crypto-btn" data-crypto="LTC+DOGE">⚡ LTC+DOGE</button>
+      </div>
+    </div>
+
+    <!-- ВЫБОР ASIC -->
+    <section class="card">
+      <div class="card-label-row">
+        <span class="card-label">Модель</span>
+        <span class="card-help">Выберите устройство из списка</span>
+      </div>
+
+      <div class="asic-select">
+        <div id="asicSelected" class="asic-selected">Загрузка моделей...</div>
+
+        <div id="asicDropdown" class="asic-dropdown hidden">
+          <input id="asicSearch" type="text" class="asic-search" placeholder="Поиск по модели" />
+          <div id="asicList" class="asic-list"></div>
+        </div>
+      </div>
+
+      <div class="asic-brief" id="asicBrief" style="display:none;">
+        <div class="asic-brief-left">
+          <div class="asic-param"><span>Производитель:</span> <strong id="briefManufacturer"></strong></div>
+          <div class="asic-param"><span>Хешрейт:</span> <strong id="briefHashrate"></strong></div>
+          <div class="asic-param"><span>Потребление:</span> <strong id="briefPower"></strong></div>
+        </div>
+        <div class="asic-brief-right">
+          <div class="asic-param"><span>Стоимость устройства:</span> <strong id="briefPrice"></strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ПАРАМЕТРЫ -->
+    <section class="card">
+      <div class="inputs-grid">
+        <div class="input-block">
+          <label>Количество устройств</label>
+          <div class="number-input">
+            <button type="button" id="btnCountMinus">−</button>
+            <input type="number" id="countInput" value="1" min="1" />
+            <button type="button" id="btnCountPlus">+</button>
+          </div>
+        </div>
+
+        <div class="input-block">
+          <label>Тариф, ₽/кВт⋅ч</label>
+          <input type="number" id="tariffInput" value="5.3" step="0.1" class="input" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ПОЛЬЗОВАТЕЛЬСКИЙ КУРС -->
+    <div class="card exchange-card">
+      <label class="checkbox-row">
+        <input type="checkbox" id="customRateCheckbox">
+        <span>Рассчитать по своему курсу</span>
+        <span class="hint">?</span>
+      </label>
+
+      <!-- Блок курсов (будет переключаться BTC/SCRYPT) -->
+      <div id="customRateBlock" class="hidden">
+
+        <!-- BTC режим -->
+        <div id="rateBlockBtc">
+          <div class="rate-row">
+            <div class="rate-col">
+              <label>BTC/USDT</label>
+              <div class="calc-input-wrap">
+                <input type="number" id="inputBtcUsdt" class="calc-input">
+                <button class="refresh-btn" id="resetBtcUsdt">⟳</button>
+              </div>
+              <div class="slider-labels">
+                <span>-50%</span>
+                <span id="btcUsdtPercent">0%</span>
+                <span>200%</span>
+              </div>
+              <input type="range" id="sliderBtcUsdt" min="-50" max="200" value="0">
+            </div>
+
+            <div class="rate-col">
+              <label>USDT/RUB</label>
+              <div class="calc-input-wrap">
+                <input type="number" id="inputUsdtRub" class="calc-input">
+                <button class="refresh-btn" id="resetUsdtRub">⟳</button>
+              </div>
+              <div class="slider-labels">
+                <span>-50%</span>
+                <span id="usdtRubPercent">0%</span>
+                <span>200%</span>
+              </div>
+              <input type="range" id="sliderUsdtRub" min="-50" max="200" value="0">
+            </div>
+          </div>
+        </div>
+
+        <!-- SCRYPT режим -->
+        <div id="rateBlockScrypt" class="hidden">
+          <div class="rate-row">
+            
+            <div class="rate-col">
+              <label>LTC/USDT</label>
+              <div class="calc-input-wrap">
+                <input type="number" id="inputLtcUsdt" class="calc-input">
+                <button class="refresh-btn" id="resetLtcUsdt">⟳</button>
+              </div>
+              <div class="slider-labels">
+                <span>-50%</span>
+                <span id="ltcUsdtPercent">0%</span>
+                <span>200%</span>
+              </div>
+              <input type="range" id="sliderLtcUsdt" min="-50" max="200" value="0">
+            </div>
+
+            <div class="rate-col">
+              <label>DOGE/USDT</label>
+              <div class="calc-input-wrap">
+                <input type="number" id="inputDogeUsdt" class="calc-input">
+                <button class="refresh-btn" id="resetDogeUsdt">⟳</button>
+              </div>
+              <div class="slider-labels">
+                <span>-50%</span>
+                <span id="dogeUsdtPercent">0%</span>
+                <span>200%</span>
+              </div>
+              <input type="range" id="sliderDogeUsdt" min="-50" max="200" value="0">
+            </div>
+
+            <div class="rate-col">
+              <label>USDT/RUB</label>
+              <div class="calc-input-wrap">
+                <input type="number" id="inputUsdtRub2" class="calc-input">
+                <button class="refresh-btn" id="resetUsdtRub2">⟳</button>
+              </div>
+              <div class="slider-labels">
+                <span>-50%</span>
+                <span id="usdtRubPercent2">0%</span>
+                <span>200%</span>
+              </div>
+              <input type="range" id="sliderUsdtRub2" min="-50" max="200" value="0">
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- РЕЗУЛЬТАТ -->
+    <section class="card" id="resultCard">
+      <div class="card-label-row">
+        <span class="card-label">Результат</span>
+        <span class="card-help" id="periodLabelText">за месяц</span>
+      </div>
+
+      <!-- Для SHA256 -->
+      <div class="result-row btc-only">
+        <span>Доход в BTC</span>
+        <strong id="btcIncome">–</strong>
+      </div>
+
+      <!-- Для SCRYPT -->
+      <div class="result-row scrypt-only hidden">
+        <span>Доход LTC</span>
+        <strong id="ltcIncome">–</strong>
+      </div>
+
+      <div class="result-row scrypt-only hidden">
+        <span>Доход DOGE</span>
+        <strong id="dogeIncome">–</strong>
+      </div>
+
+      <div class="result-row">
+        <span>Доход</span>
+        <strong id="mainIncome">–</strong>
+      </div>
+
+      <div class="result-row">
+        <span>Расходы на электроэнергию</span>
+        <strong id="powerCost">–</strong>
+      </div>
+
+      <div class="result-row">
+        <span>Чистая прибыль</span>
+        <strong id="netProfit">–</strong>
+      </div>
+
+      <div class="result-row">
+        <span>Расход энергии</span>
+        <strong id="powerKwh">–</strong>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="result-row">
+        <span>Окупаемость</span>
+        <strong id="payback">–</strong>
+      </div>
+
+      <div class="result-row">
+        <span>Доходность, % годовых</span>
+        <strong id="roiYear">–</strong>
+      </div>
+    </section>
+
+    <div class="contact-manager-wrap">
+  <button id="contactManagerBtn" class="contact-manager-btn">
+    Написать менеджеру
+  </button>
+</div>
+
+
+    <footer class="footer">
+      Расчёты носят предварительный характер и зависят от курса валют, сложности сети
+      и других рыночных факторов.
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="metrika.js"></script>
+</body>
+</html>
