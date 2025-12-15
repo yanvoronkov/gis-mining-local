@@ -8,8 +8,12 @@ Thumbs.db
 /bitrix/managed_cache/
 /bitrix/html_cache/
 /bitrix/tmp/
+/bitrix/stack_cache/
 /upload/tmp/
 /upload/resize_cache/
+
+# Mining Calculator Cache
+/mining-calculator/runtime/cache/*.json
 
 # Backups
 /bitrix/backup/
