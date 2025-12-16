@@ -442,13 +442,24 @@ function updateProductSortPriority($elementId, $iblockId)
         $price = (float) $arPrice['PRICE'];
     }
 
-    // 3. Рассчитываем приоритет
+    // 3. Рассчитываем приоритет (4 уровня)
+    // 1. Хит с ценой       -> 400
+    // 2. Хит без цены      -> 300
+    // 3. Не хит с ценой    -> 200
+    // 4. Не хит без цены   -> 100
+    
     if ($isFeatured) {
-        $priority = 300;
-    } elseif ($price > 0) {
-        $priority = 200;
+        if ($price > 0) {
+            $priority = 400;
+        } else {
+            $priority = 300;
+        }
     } else {
-        $priority = 100;
+        if ($price > 0) {
+            $priority = 200;
+        } else {
+            $priority = 100;
+        }
     }
 
     // 4. Обновляем свойство SORT_PRIORITY
