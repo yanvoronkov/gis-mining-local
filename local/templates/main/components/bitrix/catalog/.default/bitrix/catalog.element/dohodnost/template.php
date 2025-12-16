@@ -737,6 +737,7 @@ $viewedProductIds = array_slice($viewedProductIds, 0, 4);
     </section>
 
     <!-- Калькулятор доходности для ASIC-майнеров -->
+     <!-- Калькулятор доходности для ASIC-майнеров -->
     <?php
     require_once rtrim($_SERVER['DOCUMENT_ROOT'], '/') . '/mining-calculator/includes/functions.php';
     $profitCalculator = [
@@ -791,16 +792,16 @@ $viewedProductIds = array_slice($viewedProductIds, 0, 4);
                             <div class="profit-calculator__field profit-calculator__field--quantity">
                                 <div class="profit-calculator__field-label">Количество</div>
                                 <div class="profit-calculator__field-input-wrapper">
-                                    <input id="pc-quantity" class="profit-calculator__field-input" type="number"
-                                        inputmode="numeric" value="1" min="1" step="1" required>
+                                    <input id="pc-quantity" name="pcQuantity" class="profit-calculator__field-input"
+                                        type="number" inputmode="numeric" value="1" min="1" step="1" required>
                                     <span class="profit-calculator__field-unit">шт</span>
                                 </div>
                             </div>
                             <div class="profit-calculator__field profit-calculator__field--power-price">
                                 <div class="profit-calculator__field-label">Цена электроэнергии</div>
                                 <div class="profit-calculator__field-input-wrapper">
-                                    <input id="pc-tariff" class="profit-calculator__field-input" type="number"
-                                        inputmode="numeric" value="5.3" min="0" step="0.1" required>
+                                    <input id="pc-tariff" name="pcTariff" class="profit-calculator__field-input"
+                                        type="number" inputmode="numeric" value="5.3" min="0" step="0.1" required>
                                     <span class="profit-calculator__field-unit">₽/кВт·ч</span>
                                 </div>
                             </div>
@@ -841,11 +842,11 @@ $viewedProductIds = array_slice($viewedProductIds, 0, 4);
                                 </div>
                             </div>
                             <?php /*<div class="profit-calculator__metric-card preloader-block">
-  <div class="profit-calculator__metric-card-label">Окупаемость</div>
-  <div class="profit-calculator__metric-card-value highlighted-color">
-    <span id="pc-payback" class="preloader-text">—</span>
-  </div>
-</div>*/ ?>
+           <div class="profit-calculator__metric-card-label">Окупаемость</div>
+           <div class="profit-calculator__metric-card-value highlighted-color">
+             <span id="pc-payback" class="preloader-text">—</span>
+           </div>
+         </div>*/ ?>
                         </div>
 
                         <div class="profit-calculator__fields">
@@ -935,7 +936,7 @@ $viewedProductIds = array_slice($viewedProductIds, 0, 4);
                             </div>
                         </div>
 
-                        <button class="btn btn-primary profit-calculator__btn-calculate" type="submit">Рассчитать</button>
+                        <?php /*<button class="btn btn-primary profit-calculator__btn-calculate" type="submit">Рассчитать</button>*/ ?>
                     </form>
 
                     <p class="profit-calculator__footer-note preloader-block">Актуальный расчет на <span id="pc-date"
@@ -949,13 +950,6 @@ $viewedProductIds = array_slice($viewedProductIds, 0, 4);
         <script src="/mining-calculator/assets/product/rangeslider.min.js"></script>
         <script src="/mining-calculator/assets/product/product-calc.js"></script>
     <?php endif; ?>
-
-</div>
-<div class="container section-padding">
-    <div id="app1760940257" class="app1760940257" data-device-id="<?= $arResult['ID'] ?>"></div>
-    <link rel="stylesheet" crossorigin href="/mining-calculator/assets/index-2sJhWy83.css">
-    <script type="module" crossorigin src="/mining-calculator/assets/index-WzmfY1Ul.js"></script>
-</div>
 </div>
 
 <section class="offerings section-padding container">
