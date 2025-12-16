@@ -27,13 +27,11 @@ if ($iblock) {
     ];
 }
 
-// SEO для главной страницы каталога (через централизованную функцию)
-setCatalogSeo([
-    'title' => 'Купить оборудование для майнинга — Каталог продукции от «Gis Mining»',
-    'h1' => 'Каталог оборудования для майнинга',
-    'description' => 'Каталог асик-майнеров от компании «Gis Mining». Доступные цены, высокое качество, широкий ассортимент.',
-    'robots' => 'index, follow',
-]);
+// SEO для главной страницы каталога (через стандартные методы)
+$APPLICATION->SetTitle('Каталог оборудования для майнинга');
+$APPLICATION->SetPageProperty('title', 'Купить оборудование для майнинга — Каталог продукции от «Gis Mining»');
+$APPLICATION->SetPageProperty('description', 'Каталог асик-майнеров от компании «Gis Mining». Доступные цены, высокое качество, широкий ассортимент.');
+$APPLICATION->SetPageProperty('robots', 'index, follow');
 
 // Дополнительные свойства для шаблона
 $APPLICATION->SetPageProperty("header_right_class", "color-block");

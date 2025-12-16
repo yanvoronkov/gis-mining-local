@@ -82,55 +82,23 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
     
     // --- КОНЕЦ БЛОКА УПРАВЛЕНИЯ АССЕТАМИ ---
     
-    // --- ПОДГОТОВКА ДАННЫХ (НАДЕЖНЫЙ СПОСОБ С ИСПОЛЬЗОВАНИЕМ НАСТРОЕК БИТРИКСА) ---
+    // --- ПОДГОТОВКА ДАННЫХ ---
     
     // Определяем протокол
     $protocol = \Bitrix\Main\Context::getCurrent()->getRequest()->isHttps() ? "https" : "http";
 
-    // Получаем имя сервера из настроек сайта. Это самый надежный способ.
-    // Константа SITE_SERVER_NAME определяется на основе поля "URL сервера", которое мы настроили.
+    // Получаем имя сервера
     $serverName = defined('SITE_SERVER_NAME') && strlen(SITE_SERVER_NAME) > 0 ? SITE_SERVER_NAME : $_SERVER['SERVER_NAME'];
 
-    // Получаем чистый URL страницы без GET-параметров
+    // Получаем чистый URL страницы без GET-параметров для использования в верстке (если нужно)
     $pageUrl = $APPLICATION->GetCurPage(false);
-
-    // Собираем полный канонический URL
     $fullPageUrl = $protocol . '://' . $serverName . $pageUrl;
 
-    // Также формируем URL для OG-картинки, чтобы он тоже был правильным
-    $ogImageUrl = $protocol . '://' . $serverName . '/local/templates/main/assets/img/home/home_open-graph_image.png';
-
-    // --- ФОРМИРОВАНИЕ CANONICAL URL ---
-    // Canonical должен указывать на базовую версию страницы без:
-    // - GET-параметров (фильтры, utm и т.д.)
-    // - Пагинации (/page-2/, /page-3/)
-    // - Суффикса калькулятора (/calculator-dohodnosti/)
+    // --- SEO ЗАДАЧИ ---
+    // Canonical и OpenGraph теперь управляются централизованно через SeoManager (в init.php)
     
-    $canonicalUrl = $pageUrl;
-
-    // 1. Удаляем пагинацию (если есть)
-    $canonicalUrl = preg_replace('#/page-\d+/?$#', '/', $canonicalUrl);
-
-    // 2. Удаляем суффикс калькулятора (если есть)
-    $canonicalUrl = preg_replace('#/calculator-dohodnosti/?$#', '/', $canonicalUrl);
-
-    // 3. Нормализуем - убираем двойные слеши и добавляем trailing slash
-    $canonicalUrl = preg_replace('#/+#', '/', $canonicalUrl); // Убираем двойные слеши
-    if ($canonicalUrl !== '/' && substr($canonicalUrl, -1) !== '/') {
-        $canonicalUrl .= '/'; // Добавляем trailing slash
-    }
-
-    $fullPageUrl = $protocol . '://' . $serverName . $canonicalUrl;
-
-    // --- УСТАНОВКА CANONICAL URL ---
-    // Устанавливаем через AddHeadString
-    // ShowLink("canonical") может вывести canonical из админки, поэтому используем только AddHeadString
-    $APPLICATION->AddHeadString('<link rel="canonical" href="' . $fullPageUrl . '">', true);
-
-
-    // --- РЕГИСТРАЦИЯ ОТЛОЖЕННОЙ ФУНКЦИИ ДЛЯ МЕТА-ТЕГОВ ---
-    $APPLICATION->AddBufferContent('renderCustomMetaTags');
-
+    // JSON-LD схемы выводятся в footer.php
+    
     // JSON-LD схемы выводятся в footer.php, после выполнения всех компонентов страницы
     
     // ГЛАВНАЯ ФУНКЦИЯ БИТРИКСА. Выводит все, что мы зарегистрировали выше,
@@ -556,6 +524,9 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
         <?php endif; ?>
 
         <?php
+        // --- РЕГИСТРАЦИЯ ОТЛОЖЕННОЙ ФУНКЦИИ ДЛЯ МЕТА-ТЕГОВ (Open Graph) ---
+        // Используем SeoManager для генерации OG-тегов
+        $APPLICATION->AddBufferContent([\Local\Seo\SeoManager::getInstance(), 'renderOpenGraph']);
         // Вывод заголовка H1 (используем отложенную функцию, чтобы учитывать свойства, установленные в теле страницы)
         $APPLICATION->AddBufferContent(function () use ($APPLICATION) {
             if ($APPLICATION->GetProperty("HIDE_TITLE") != "Y") {

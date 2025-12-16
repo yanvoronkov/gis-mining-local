@@ -137,5 +137,8 @@ if ($imageUrl) {
     $APPLICATION->SetPageProperty('twitter:image', $imageUrl);
 }
 
-// Product schema теперь генерируется в result_modifier.php, где доступны полные данные $arResult
+// Product schema (Generated in result_modifier and cached)
+if (!empty($arResult['PRODUCT_SCHEMA'])) {
+    \Local\Seo\SeoManager::addJsonLdSchema($arResult['PRODUCT_SCHEMA']);
+}
 

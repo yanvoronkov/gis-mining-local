@@ -20,16 +20,18 @@ if (empty($arResult) || !isset($arResult['NAME'])) {
     return;
 }
 
-// ВАЖНО: Очищаем дополнительную цепочку хлебных крошек,
-// т.к. стандартный компонент мог добавить некорректные элементы
+// ВАЖНО: Очищаем дополнительную цепочку хлебных крошек
 $APPLICATION->arAdditionalChain = [];
 
-// --- Специфичные настройки для страницы доходности ---
-// ПРИМЕЧАНИЕ: Title и Description уже установлены в template.php
-// Здесь мы используем их только для формирования OG и Twitter тегов
-$productNamePrefix = "Доходность ";
-$pageTitle = $productNamePrefix . $arResult['NAME'];
-$pageDescription = "Калькулятор прибыльности асика " . $arResult['NAME'] . " - GIS-MINING 2025";
+// --- SEO настройки (Title, Description, OG) ---
+// Получаем значения из кэша (сформированы в result_modifier.php)
+$pageTitle = $arResult['SEO_TITLE'] ?? "Доходность " . $arResult['NAME'];
+$pageDescription = $arResult['SEO_DESCRIPTION'] ?? "Калькулятор прибыльности асика " . $arResult['NAME'] . " - GIS-MINING 2025";
+
+// Устанавливаем стандартные SEO теги (которые подхватит SeoManager)
+$APPLICATION->SetTitle($pageTitle);
+$APPLICATION->SetPageProperty('title', $pageTitle);
+$APPLICATION->SetPageProperty('description', $pageDescription);
 
 // Определяем раздел каталога на основе IBLOCK_ID товара
 $catalogSection = '';
@@ -173,10 +175,10 @@ if (!empty($baseDetailUrl)) {
 $APPLICATION->AddChainItem("Калькулятор доходности");
 
 // Устанавливаем Open Graph теги на основе данных товара
-$siteName = COption::GetOptionString("main", "site_name", "GIS Mining");
+$siteName = \Bitrix\Main\Config\Option::get("main", "site_name", "GIS Mining");
 
 // Определяем полный URL страницы (с /calculator-dohodnosti/)
-$protocol = CMain::IsHTTPS() ? "https" : "http";
+$protocol = \Bitrix\Main\Context::getCurrent()->getRequest()->isHttps() ? "https" : "http";
 $domain = $_SERVER['HTTP_HOST'];
 $cleanDomain = preg_replace('/:\d+$/', '', $domain);
 $detailPageUrl = rtrim($arResult['DETAIL_PAGE_URL'], '/') . '/calculator-dohodnosti/';
@@ -205,5 +207,8 @@ if ($imageUrl) {
     $APPLICATION->SetPageProperty('twitter:image', $imageUrl);
 }
 
-// Product schema теперь генерируется в result_modifier.php, где доступны полные данные $arResult
+// Product Schema (Generated in result_modifier and cached)
+if (!empty($arResult['PRODUCT_SCHEMA'])) {
+    \Local\Seo\SeoManager::addJsonLdSchema($arResult['PRODUCT_SCHEMA']);
+}
 

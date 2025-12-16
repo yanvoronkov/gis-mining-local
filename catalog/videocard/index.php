@@ -30,12 +30,10 @@ $IBLOCK_ID = IBLOCK_CATALOG_VIDEOCARD;
 // (Для детальной страницы SEO управляется в element.php)
 // ====================================================================
 
-setCatalogSeo([
-    'title' => 'Купить видеокарты для ИИ или 3D — Каталог продукции от «Gis Mining»',
-    'h1' => 'Видеокарты',
-    'description' => 'Каталог видеокарт от компании «Gis Mining». Доступные цены, высокое качество, широкий ассортимент. ',
-    'robots' => 'index, follow',
-]);
+$APPLICATION->SetTitle('Видеокарты');
+$APPLICATION->SetPageProperty('title', 'Купить видеокарты для ИИ или 3D — Каталог продукции от «Gis Mining»');
+$APPLICATION->SetPageProperty('description', 'Каталог видеокарт от компании «Gis Mining». Доступные цены, высокое качество, широкий ассортимент. ');
+$APPLICATION->SetPageProperty('robots', 'index, follow');
 
 $APPLICATION->SetPageProperty("header_right_class", "color-block");
 $APPLICATION->SetPageProperty("h1_class", "catalog-page__title section-title highlighted-color");
@@ -52,11 +50,11 @@ if (Loader::includeModule('dwstroy.seochpulite')) {
 // ВАЖНО: Порядок критичен! Более специфичные должны идти ПЕРВЫМИ!
 // ====================================================================
 $sefUrlTemplates = [
-	"smart_filter" => "filter/#SMART_FILTER_PATH#/apply/", // ПЕРВЫМ!
-	"calculator" => "#ELEMENT_CODE#/calculator-dohodnosti",
-	"sections" => "",
-	"section" => "#SECTION_CODE_PATH#/",
-	"element" => "#ELEMENT_CODE#/",
+    "smart_filter" => "filter/#SMART_FILTER_PATH#/apply/", // ПЕРВЫМ!
+    "calculator" => "#ELEMENT_CODE#/calculator-dohodnosti",
+    "sections" => "",
+    "section" => "#SECTION_CODE_PATH#/",
+    "element" => "#ELEMENT_CODE#/",
 ];
 
 // ====================================================================

@@ -12,233 +12,24 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
  * ======================================================================
  */
 require_once __DIR__ . '/constants.php';
-require_once __DIR__ . '/seo_helper.php';
+// ======================================================================
+// Подключение классов-хелперов
+// ======================================================================
 
+// Подключаем централизованный SEO менеджер
+require_once($_SERVER["DOCUMENT_ROOT"] . "/local/php_interface/classes/SeoManager.php");
 
-/**
- * ======================================================================
- * Пользовательские функции для шаблона сайта
- * ======================================================================
- */
-
-/**
- * Функция для рендеринга OpenGraph и Twitter мета-тегов.
- * Регистрируется в header.php как отложенная функция через $APPLICATION->AddBufferContent().
- * @return string Возвращает HTML-код с мета-тегами.
- */
-function renderCustomMetaTags()
-{
-    global $APPLICATION;
-    $output = ''; // Уберем отладочные комментарии
-
-    $arPageProperties = $APPLICATION->GetPagePropertyList();
-
-    // --- ЛОГИКА FALLBACK (АВТО-ЗАПОЛНЕНИЕ) ---
-    // Если OG-теги не заданы явно, берем их из стандартных свойств (Title, Description)
-
-    // 1. OG:TITLE
-    if (empty($arPageProperties['og:title']) && empty($arPageProperties['OG:TITLE'])) {
-        $title = $APPLICATION->GetPageProperty('title');
-        if (empty($title)) {
-            $title = $APPLICATION->GetTitle(false);
-        }
-        if (!empty($title)) {
-            $APPLICATION->SetPageProperty('og:title', $title);
-            $arPageProperties['og:title'] = $title; // Обновляем локально для цикла
-        }
-    }
-
-    // 2. OG:DESCRIPTION
-    if (empty($arPageProperties['og:description']) && empty($arPageProperties['OG:DESCRIPTION'])) {
-        $description = $APPLICATION->GetPageProperty('description');
-        if (!empty($description)) {
-            $APPLICATION->SetPageProperty('og:description', $description);
-            $arPageProperties['og:description'] = $description;
-        }
-    }
-
-    // 3. OG:IMAGE
-    if (empty($arPageProperties['og:image']) && empty($arPageProperties['OG:IMAGE'])) {
-        $protocol = \Bitrix\Main\Context::getCurrent()->getRequest()->isHttps() ? "https" : "http";
-        // SITE_SERVER_NAME может быть не определен в админке, но здесь мы во фронтенде
-        $serverName = defined('SITE_SERVER_NAME') && strlen(SITE_SERVER_NAME) > 0 ? SITE_SERVER_NAME : ($_SERVER['SERVER_NAME'] ?? '');
-
-        // Путь к дефолтной картинке
-        $defaultImage = $protocol . '://' . $serverName . '/local/templates/main/assets/img/home/home_open-graph_image.png';
-
-        $APPLICATION->SetPageProperty('og:image', $defaultImage);
-        $arPageProperties['og:image'] = $defaultImage;
-    }
-
-    // 4. OG:URL
-    if (empty($arPageProperties['og:url']) && empty($arPageProperties['OG:URL'])) {
-        $protocol = \Bitrix\Main\Context::getCurrent()->getRequest()->isHttps() ? "https" : "http";
-        $serverName = defined('SITE_SERVER_NAME') && strlen(SITE_SERVER_NAME) > 0 ? SITE_SERVER_NAME : ($_SERVER['SERVER_NAME'] ?? '');
-        $requestUri = $APPLICATION->GetCurPage(false);
-
-        $currentUrl = $protocol . '://' . $serverName . $requestUri;
-
-        $APPLICATION->SetPageProperty('og:url', $currentUrl);
-        $arPageProperties['og:url'] = $currentUrl;
-    }
-
-    // 5. OG:TYPE
-    if (empty($arPageProperties['og:type']) && empty($arPageProperties['OG:TYPE'])) {
-        $APPLICATION->SetPageProperty('og:type', 'website');
-        $arPageProperties['og:type'] = 'website';
-    }
-
-
-    // --- РЕНДЕРИНГ ---
-    // Перечитываем свойства после fallback-логики, чтобы получить все установленные теги
-    $arPageProperties = $APPLICATION->GetPagePropertyList();
-
-    // Проходимся по актуальному списку свойств
-    if (!empty($arPageProperties)) {
-        foreach ($arPageProperties as $propertyCode => $propertyValue) {
-            // Пропускаем пустые значения
-            if (empty($propertyValue)) {
-                continue;
-            }
-
-            $propertyCodeLower = strtolower($propertyCode);
-
-            // Обрабатываем Open Graph мета-теги
-            if (strpos($propertyCodeLower, 'og:') === 0) {
-                $output .= '<meta property="' . htmlspecialchars($propertyCodeLower) . '" content="' . htmlspecialchars($propertyValue) . '">' . "\n\t";
-            }
-            // Обрабатываем Twitter Card мета-теги
-            elseif (strpos($propertyCodeLower, 'twitter:') === 0) {
-                $output .= '<meta name="' . htmlspecialchars($propertyCodeLower) . '" content="' . htmlspecialchars($propertyValue) . '">' . "\n\t";
-            }
-            // Обрабатываем каноническую ссылку
-            elseif ($propertyCodeLower === 'canonical') {
-                $output .= '<link rel="canonical" href="' . htmlspecialchars($propertyValue) . '">' . "\n\t";
-            }
-        }
-    }
-
-    return $output;
-}
-
-/**
- * Универсальная функция для рендеринга JSON-LD микроразметки (Schema.org).
- * Работает по аналогии с renderCustomMetaTags() - централизованно управляет всеми схемами.
- * 
- * Использование в компонентах:
- * 
- * $productSchema = [
- *     '@context' => 'https://schema.org/',
- *     '@type' => 'Product',
- *     'name' => $arResult['NAME'],
- *     // ... другие свойства продукта
- * ];
- * 
- * // Регистрируем через глобальную переменную
- * global $GLOBAL_JSON_LD_SCHEMAS;
- * if (!isset($GLOBAL_JSON_LD_SCHEMAS)) {
- *     $GLOBAL_JSON_LD_SCHEMAS = [];
- * }
- * $GLOBAL_JSON_LD_SCHEMAS['Product'] = $productSchema;
- * 
- * @return string HTML с тегами <script type="application/ld+json">
- */
-function renderJsonLdSchemas()
-{
-    global $GLOBAL_JSON_LD_SCHEMAS;
-
-    // Получаем зарегистрированные схемы из глобальной переменной
-    $schemas = isset($GLOBAL_JSON_LD_SCHEMAS) && is_array($GLOBAL_JSON_LD_SCHEMAS) ? $GLOBAL_JSON_LD_SCHEMAS : [];
-
-    // --- АВТОМАТИЧЕСКОЕ ДОБАВЛЕНИЕ БАЗОВЫХ СХЕМ ---
-
-    // 1. Organization (на всех страницах, если не задана явно)
-    if (!isset($schemas['Organization'])) {
-        $protocol = \Bitrix\Main\Context::getCurrent()->getRequest()->isHttps() ? 'https' : 'http';
-        $serverName = $_SERVER['SERVER_NAME'];
-
-        $schemas['Organization'] = [
-            '@context' => 'https://schema.org',
-            '@type' => 'Organization',
-            'name' => 'GIS Mining',
-            'url' => $protocol . '://' . $serverName . '/',
-            'logo' => $protocol . '://' . $serverName . '/local/templates/main/assets/img/header/logo_header_white.png',
-            'contactPoint' => [
-                '@type' => 'ContactPoint',
-                'telephone' => '+78007777798',
-                'contactType' => 'sales',
-                'areaServed' => 'RU',
-                'availableLanguage' => 'ru'
-            ],
-            'sameAs' => [
-                'https://www.facebook.com/gismining',
-                'https://www.instagram.com/gismining',
-                'https://vk.com/gis_mining',
-                'https://t.me/gismining',
-                'https://vc.ru/id4624566',
-                'https://ru.tradingview.com/u/GIS-Mining/',
-                'https://dzen.ru/user/wz4h9o1t6gyei9xirsrwh20ctri'
-            ]
-        ];
-    }
-
-    // 2. WebSite (поиск по сайту, на всех страницах, если не задан явно)
-    if (!isset($schemas['WebSite'])) {
-        $protocol = \Bitrix\Main\Context::getCurrent()->getRequest()->isHttps() ? 'https' : 'http';
-        $serverName = $_SERVER['SERVER_NAME'];
-
-        $schemas['WebSite'] = [
-            '@context' => 'https://schema.org',
-            '@type' => 'WebSite',
-            '@id' => $protocol . '://' . $serverName . '/#website',
-            'url' => $protocol . '://' . $serverName . '/',
-            'name' => 'GIS Mining',
-            'publisher' => [
-                '@id' => $protocol . '://' . $serverName . '/#org'
-            ],
-            'potentialAction' => [
-                '@type' => 'SearchAction',
-                'target' => $protocol . '://' . $serverName . '/search/?q={search_term_string}',
-                'query-input' => 'required name=search_term_string'
-            ]
-        ];
-    }
-
-    // --- ФОРМИРУЕМ ВЫВОД ---
-    $output = '';
-
-    foreach ($schemas as $schemaType => $schema) {
-        if (!empty($schema)) {
-            $output .= '<script type="application/ld+json">' . "\n";
-            $output .= json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-            $output .= "\n" . '</script>' . "\n";
-        }
-    }
-
-    return $output;
-}
-
-/**
- * ======================================================================
- * Подключение агентов и прочих скриптов
- * ======================================================================
- */
-
-// Ваш существующий код для подключения агента:
-// Просто подключаем файл с функцией агента, чтобы Битрикс мог ее найти.
-require_once($_SERVER["DOCUMENT_ROOT"] . "/local/scripts/update_prices_from_google.php");
-
-/**
- * ======================================================================
- * Подключение классов-хелперов
- * ======================================================================
- */
+// Инициализируем SEO (Canonical + Meta)
+\Local\Seo\SeoManager::init();
 
 // Подключаем хелпер для работы с поиском
 require_once($_SERVER["DOCUMENT_ROOT"] . "/local/php_interface/classes/SearchHelper.php");
 
 // Подключаем централизованную конфигурацию поиска
 require_once($_SERVER["DOCUMENT_ROOT"] . "/local/php_interface/classes/SearchConfig.php");
+
+// ... (Rest of the file remains, but remove redundant functions if any)
+
 
 /**
  * ======================================================================
@@ -447,7 +238,7 @@ function updateProductSortPriority($elementId, $iblockId)
     // 2. Хит без цены      -> 300
     // 3. Не хит с ценой    -> 200
     // 4. Не хит без цены   -> 100
-    
+
     if ($isFeatured) {
         if ($price > 0) {
             $priority = 400;

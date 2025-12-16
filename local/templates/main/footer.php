@@ -631,59 +631,8 @@ include $_SERVER["DOCUMENT_ROOT"] . SITE_TEMPLATE_PATH . '/include/mobile_menu.p
 ?>
 
 <?php
-// Выводим базовые схемы Organization и WebSite
-$protocol = \Bitrix\Main\Context::getCurrent()->getRequest()->isHttps() ? 'https' : 'http';
-$serverName = defined('SITE_SERVER_NAME') && strlen(SITE_SERVER_NAME) > 0 ? SITE_SERVER_NAME : $_SERVER['SERVER_NAME'];
-$siteUrl = $protocol . '://' . $serverName;
-
-// Organization Schema
-echo '<script type="application/ld+json">' . "\n";
-echo json_encode([
-    '@context' => 'https://schema.org',
-    '@type' => 'Organization',
-    '@id' => $siteUrl . '/#org',
-    'name' => 'GIS Mining',
-    'url' => $siteUrl . '/',
-    'logo' => $siteUrl . '/local/templates/main/assets/img/header/logo_header_white.png',
-    'contactPoint' => [
-        '@type' => 'ContactPoint',
-        'telephone' => '+78007777798',
-        'contactType' => 'sales',
-        'areaServed' => 'RU',
-        'availableLanguage' => 'ru'
-    ],
-    'sameAs' => [
-        'https://www.facebook.com/gismining',
-        'https://www.linkedin.com/company/gis-mining',
-        'https://www.instagram.com/gismining',
-        'https://www.threads.com/@gismining',
-        'https://vk.com/gis_mining',
-        'https://t.me/gismining',
-        'https://vc.ru/id4624566',
-        'https://ru.tradingview.com/u/GIS-Mining/#settings-profile',
-        'https://dzen.ru/user/wz4h9o1t6gyei9xirsrwh20ctri'
-    ]
-], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-echo "\n</script>\n";
-
-// WebSite Schema
-echo '<script type="application/ld+json">' . "\n";
-echo json_encode([
-    '@context' => 'https://schema.org',
-    '@type' => 'WebSite',
-    '@id' => $siteUrl . '/#website',
-    'url' => $siteUrl . '/',
-    'name' => 'GIS Mining',
-    'publisher' => [
-        '@id' => $siteUrl . '/#org'
-    ],
-    'potentialAction' => [
-        '@type' => 'SearchAction',
-        'target' => $siteUrl . '/search/?q={search_term_string}',
-        'query-input' => 'required name=search_term_string'
-    ]
-], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-echo "\n</script>\n";
+// Выводим централизованные JSON-LD схемы (Organization, WebSite + динамические)
+echo \Local\Seo\SeoManager::getJsonLd();
 
 // Выводим схемы компонентов (BreadcrumbList, Product, и т.д.)
 $APPLICATION->ShowViewContent('json_ld_schemas');

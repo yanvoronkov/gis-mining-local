@@ -12,11 +12,8 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 $product = $arResult;
 
 // --- Специфичные настройки для страницы доходности ---
-// Title и Description уже установлены в detail_dohodnost.php
-$isDohodnostPage = true;
-$productNamePrefix = "Доходность ";
-$pageTitle = $productNamePrefix . $product['NAME'];
-$pageDescription = "Калькулятор прибыльности асика " . $product['NAME'] . " - GIS-MINING 2025";
+// Title и Description определены в result_modifier.php
+$pageTitle = $arResult['SEO_TITLE'] ?? "Доходность " . $product['NAME'];
 
 // Формируем ALT-атрибуты для изображений
 $mainImageAlt = !empty($product['DETAIL_PICTURE']['ALT']) ? $product['DETAIL_PICTURE']['ALT'] : $product['NAME'];
@@ -737,7 +734,7 @@ $viewedProductIds = array_slice($viewedProductIds, 0, 4);
     </section>
 
     <!-- Калькулятор доходности для ASIC-майнеров -->
-     <!-- Калькулятор доходности для ASIC-майнеров -->
+    <!-- Калькулятор доходности для ASIC-майнеров -->
     <?php
     require_once rtrim($_SERVER['DOCUMENT_ROOT'], '/') . '/mining-calculator/includes/functions.php';
     $profitCalculator = [
@@ -842,11 +839,11 @@ $viewedProductIds = array_slice($viewedProductIds, 0, 4);
                                 </div>
                             </div>
                             <?php /*<div class="profit-calculator__metric-card preloader-block">
-           <div class="profit-calculator__metric-card-label">Окупаемость</div>
-           <div class="profit-calculator__metric-card-value highlighted-color">
-             <span id="pc-payback" class="preloader-text">—</span>
-           </div>
-         </div>*/ ?>
+          <div class="profit-calculator__metric-card-label">Окупаемость</div>
+          <div class="profit-calculator__metric-card-value highlighted-color">
+            <span id="pc-payback" class="preloader-text">—</span>
+          </div>
+        </div>*/ ?>
                         </div>
 
                         <div class="profit-calculator__fields">

@@ -13,12 +13,10 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $IBLOCK_ID = IBLOCK_CONTENT_GPU;
 
 // --- SEO-ТЕГИ ---
-setCatalogSeo([
-    'title' => 'Газопоршневые электростанции для майнинга от GIS Mining',
-    'h1' => 'Газопоршневые электростанции (ГПУ) для майнинга',
-    'description' => 'Автономное энергоснабжение для майнинга и ЦОДов на базе ГПУ с минимальным тарифом за кВч. Подбор, установка, запуск и сопровождение от GIS Mining по всей РФ.',
-    'robots' => 'index, follow',
-]);
+$APPLICATION->SetTitle('Газопоршневые электростанции (ГПУ) для майнинга');
+$APPLICATION->SetPageProperty('title', 'Газопоршневые электростанции для майнинга от GIS Mining');
+$APPLICATION->SetPageProperty('description', 'Автономное энергоснабжение для майнинга и ЦОДов на базе ГПУ с минимальным тарифом за кВч. Подбор, установка, запуск и сопровождение от GIS Mining по всей РФ.');
+$APPLICATION->SetPageProperty('robots', 'index, follow');
 
 // --- СЛУЖЕБНЫЕ СВОЙСТВА ---
 $APPLICATION->SetPageProperty("header_right_class", "color-block");

@@ -14,12 +14,10 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $IBLOCK_ID = IBLOCK_CONTENT_BUSINESS;
 
 // --- SEO-ТЕГИ ---
-setCatalogSeo([
-    'title' => 'Готовый бизнес для майнинга от GIS Mining',
-    'h1' => 'Готовый бизнес по майнингу от GIS Mining',
-    'description' => 'Готовые решения для майнингового бизнеса от компании GIS Mining.',
-    'robots' => 'index, follow',
-]);
+$APPLICATION->SetTitle('Готовый бизнес по майнингу от GIS Mining');
+$APPLICATION->SetPageProperty('title', 'Готовый бизнес для майнинга от GIS Mining');
+$APPLICATION->SetPageProperty('description', 'Готовые решения для майнингового бизнеса от компании GIS Mining.');
+$APPLICATION->SetPageProperty('robots', 'index, follow');
 
 // --- СЛУЖЕБНЫЕ СВОЙСТВА ---
 $APPLICATION->SetPageProperty("header_right_class", "color-block");

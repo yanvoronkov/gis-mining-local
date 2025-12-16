@@ -30,12 +30,10 @@ $IBLOCK_ID = IBLOCK_CATALOG_ASICS;
 // (Для детальной страницы SEO управляется в element.php)
 // ====================================================================
 
-setCatalogSeo([
-	'title' => 'Купить ASIC-майнер для майнинга криптовалют — каталог GIS Mining 2025',
-	'h1' => 'Каталог ASIC майнеров для добычи криптовалют',
-	'description' => 'Официальные поставки ASIC-майнеров от Bitmain, WhatsMiner и Goldshell под заказ с оплатой НДС и ГТД РФ. Размещение оборудования на нашем официальном хостинге. GIS Mining - ваш надежный поставщик под ключ.',
-	'robots' => 'index, follow',
-]);
+$APPLICATION->SetTitle('Каталог ASIC майнеров для добычи криптовалют');
+$APPLICATION->SetPageProperty('title', 'Купить ASIC-майнер для майнинга криптовалют — каталог GIS Mining 2025');
+$APPLICATION->SetPageProperty('description', 'Официальные поставки ASIC-майнеров от Bitmain, WhatsMiner и Goldshell под заказ с оплатой НДС и ГТД РФ. Размещение оборудования на нашем официальном хостинге. GIS Mining - ваш надежный поставщик под ключ.');
+$APPLICATION->SetPageProperty('robots', 'index, follow');
 
 $APPLICATION->SetPageProperty("header_right_class", "color-block");
 $APPLICATION->SetPageProperty("h1_class", "catalog-page__title section-title highlighted-color");

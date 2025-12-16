@@ -14,6 +14,7 @@ $protocol = CMain::IsHTTPS() ? "https" : "http";
 $domain = $_SERVER['HTTP_HOST'];
 $cleanDomain = preg_replace('/:\d+$/', '', $domain);
 
+// Product Schema
 $productSchema = [
     '@context' => 'https://schema.org/',
     '@type' => 'Product',
@@ -21,10 +22,22 @@ $productSchema = [
 ];
 
 // Description
-if (!empty($arResult['PREVIEW_TEXT'])) {
-    $productSchema['description'] = strip_tags($arResult['PREVIEW_TEXT']);
-} elseif (!empty($arResult['DETAIL_TEXT'])) {
-    $productSchema['description'] = mb_substr(strip_tags($arResult['DETAIL_TEXT']), 0, 300);
+$description = '';
+if (!empty($arResult['DETAIL_TEXT'])) {
+    $description = $arResult['DETAIL_TEXT'];
+} elseif (!empty($arResult['PREVIEW_TEXT'])) {
+    $description = $arResult['PREVIEW_TEXT'];
+}
+
+if ($description) {
+    // 1. Decode HTML entities (like &nbsp;)
+    $description = html_entity_decode($description, ENT_QUOTES | ENT_HTML5);
+    // 2. Strip HTML tags
+    $description = strip_tags($description);
+    // 3. Replace multiple whitespace/newlines/tabs with single space
+    $description = preg_replace('/\s+/', ' ', $description);
+    // 4. Trim result
+    $productSchema['description'] = trim($description);
 }
 
 // Image
@@ -32,61 +45,52 @@ if (!empty($arResult['DETAIL_PICTURE']['SRC'])) {
     $productSchema['image'] = $protocol . '://' . $cleanDomain . $arResult['DETAIL_PICTURE']['SRC'];
 }
 
-// Brand (MANUFACTURER для ASIC, BRAND для GPU/видеокарт)
-if (!empty($arResult['PROPERTIES']['MANUFACTURER']['VALUE'])) {
-    $productSchema['brand'] = [
-        '@type' => 'Brand',
-        'name' => $arResult['PROPERTIES']['MANUFACTURER']['VALUE']
-    ];
-} elseif (!empty($arResult['PROPERTIES']['BRAND']['VALUE'])) {
-    $productSchema['brand'] = [
-        '@type' => 'Brand',
-        'name' => $arResult['PROPERTIES']['BRAND']['VALUE']
-    ];
-} else {
-    // Дефолтный бренд по типу каталога
-    $defaultBrand = 'GIS Mining';
-    switch ($arResult['IBLOCK_ID']) {
-        case 1: // ASIC
-            $defaultBrand = 'ASIC Miners';
-            break;
-        case 11: // Видеокарты
-            $defaultBrand = 'GPU';
-            break;
-    }
-    $productSchema['brand'] = [
-        '@type' => 'Brand',
-        'name' => $defaultBrand
-    ];
-}
-
-// Offers (price and availability)
-if (!empty($arResult['ITEM_PRICES'][0])) {
-    $price = $arResult['ITEM_PRICES'][0];
-    $productSchema['offers'] = [
-        '@type' => 'Offer',
-        'price' => $price['PRICE'],
-        'priceCurrency' => $price['CURRENCY'],
-        'availability' => $arResult['CAN_BUY'] ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-        'url' => $protocol . '://' . $cleanDomain . $arResult['DETAIL_PAGE_URL']
-    ];
-} elseif (!empty($arResult['PRICES']['BASE'])) {
-    $price = $arResult['PRICES']['BASE'];
-    $productSchema['offers'] = [
-        '@type' => 'Offer',
-        'price' => $price['VALUE'],
-        'priceCurrency' => $price['CURRENCY'],
-        'availability' => $arResult['CAN_BUY'] ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-        'url' => $protocol . '://' . $cleanDomain . $arResult['DETAIL_PAGE_URL']
-    ];
-}
-
 // SKU (артикул)
 if (!empty($arResult['PROPERTIES']['CML2_ARTICLE']['VALUE'])) {
     $productSchema['sku'] = $arResult['PROPERTIES']['CML2_ARTICLE']['VALUE'];
 }
 
-// Вывод схемы через ViewContent (будет показано в footer.php)
-$APPLICATION->AddViewContent('json_ld_schemas', '<script type="application/ld+json">' . "\n" .
-    json_encode($productSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) .
-    "\n" . '</script>' . "\n");
+// Brand
+$brandName = null;
+if (!empty($arResult['PROPERTIES']['MANUFACTURER']['VALUE'])) {
+    $brandName = $arResult['PROPERTIES']['MANUFACTURER']['VALUE'];
+} elseif (!empty($arResult['PROPERTIES']['BRAND']['VALUE'])) {
+    $brandName = $arResult['PROPERTIES']['BRAND']['VALUE'];
+}
+
+if ($brandName) {
+    $productSchema['brand'] = [
+        '@type' => 'Brand',
+        'name' => $brandName
+    ];
+}
+
+// Offers
+$priceData = null;
+if (!empty($arResult['ITEM_PRICES'][0])) {
+    $priceData = $arResult['ITEM_PRICES'][0];
+    $priceValue = $priceData['PRICE'];
+    $currency = $priceData['CURRENCY'];
+} elseif (!empty($arResult['PRICES']['BASE'])) {
+    $priceData = $arResult['PRICES']['BASE'];
+    $priceValue = $priceData['VALUE'];
+    $currency = $priceData['CURRENCY'];
+}
+
+if ($priceData) {
+    $productSchema['offers'] = [
+        '@type' => 'Offer',
+        'priceCurrency' => $currency,
+        'price' => $priceValue,
+        'url' => $protocol . '://' . $cleanDomain . $arResult['DETAIL_PAGE_URL'],
+        'availability' => $arResult['CAN_BUY'] ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder', // PreOrder is better fallback than OutOfStock for mining calls
+        'seller' => [
+            '@type' => 'Organization',
+            'name' => 'gis-mining.ru'
+        ]
+    ];
+}
+
+// Save to Result and Cache Keys
+$arResult['PRODUCT_SCHEMA'] = $productSchema;
+$this->__component->SetResultCacheKeys(['PRODUCT_SCHEMA']);

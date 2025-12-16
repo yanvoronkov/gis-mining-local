@@ -2,13 +2,21 @@
 $arUrlRewrite = array(
     0 =>
         array(
+            'CONDITION' => '#^/our-blog/([^/]+)/?#',
+            'RULE' => 'ELEMENT_CODE=$1',
+            'ID' => '',
+            'PATH' => '/our-blog/detail/index.php',
+            'SORT' => 100,
+        ),
+    1 =>
+        array(
             'CONDITION' => '#^/catalog/asics/#',
             'RULE' => '',
             'ID' => 'bitrix:catalog',
             'PATH' => '/catalog/asics/index.php',
             'SORT' => 100,
         ),
-    1 =>
+    2 =>
         array(
             'CONDITION' => '#^/catalog/videocard/#',
             'RULE' => '',
@@ -16,7 +24,7 @@ $arUrlRewrite = array(
             'PATH' => '/catalog/videocard/index.php',
             'SORT' => 100,
         ),
-    2 =>
+    3 =>
         array(
             'CONDITION' => '#^/catalog/gpu/#',
             'RULE' => '',
@@ -24,7 +32,7 @@ $arUrlRewrite = array(
             'PATH' => '/catalog/gpu/index.php',
             'SORT' => 100,
         ),
-    3 =>
+    4 =>
         array(
             'CONDITION' => '#^/catalog/gotovyy-biznes/#',
             'RULE' => '',
@@ -32,7 +40,7 @@ $arUrlRewrite = array(
             'PATH' => '/catalog/gotovyy-biznes/index.php',
             'SORT' => 100,
         ),
-    4 =>
+    5 =>
         array(
             'CONDITION' => '#^/catalog/conteynery/#',
             'RULE' => '',
@@ -40,7 +48,7 @@ $arUrlRewrite = array(
             'PATH' => '/catalog/conteynery/index.php',
             'SORT' => 100,
         ),
-    5 =>
+    6 =>
         array(
             'CONDITION' => '#^/catalog/investicii/#',
             'RULE' => '',
