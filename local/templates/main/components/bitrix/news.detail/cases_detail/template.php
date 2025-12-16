@@ -59,13 +59,15 @@ $articleData = [
     ],
 ];
 
+
 $articleData = array_filter($articleData);
 
-// Добавляем микроразметку в эпилог (она будет выведена перед </body>)
-$APPLICATION->AddViewContent('before_body_close', '<script type="application/ld+json">' .
-    json_encode($articleData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) .
-    '</script>');
+// Регистрируем схему Article в универсальной системе JSON-LD
+$schemas = $APPLICATION->GetPageProperty('json_ld_schemas') ?: [];
+$schemas['Article'] = $articleData;
+$APPLICATION->SetPageProperty('json_ld_schemas', $schemas);
 // ===============================================================
+
 
 
 // Получаем заголовки для навигации (h2, h3, h4)

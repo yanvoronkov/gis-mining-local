@@ -33,7 +33,7 @@ $arComponentParameters = array(
             "TYPE" => "LIST",
             "MULTIPLE" => "Y",
             "VALUES" => $arIBlocks,
-            "DEFAULT" => array(1, 3, 4, 5, 6, 11),
+            "DEFAULT" => IBLOCK_IDS_ALL_CATALOG,
             "ADDITIONAL_VALUES" => "N",
         ),
         "MIN_QUERY_LENGTH" => array(

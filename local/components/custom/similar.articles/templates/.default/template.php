@@ -6,7 +6,8 @@
     <h3 class="page-blog-detail__similar-title">Читайте также</h3>
     <div class="page-blog-detail__similar-grid native-slider js-native-slider similar-slider slider--centered slider--partial-view"
         data-native-slider-options='{
-            "pagination": { "el": ".similar-slider__pagination", "clickable": false }
+            "pagination": { "el": ".similar-slider__pagination", "clickable": false },
+            "navigation": {"nextEl": ".slider-button-next", "prevEl": ".slider-button-prev"}
         }'>
 
         <div class="native-slider__wrapper" id="similarArticlesList">

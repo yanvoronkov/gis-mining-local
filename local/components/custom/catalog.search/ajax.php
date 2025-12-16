@@ -59,7 +59,7 @@ if (strlen($query) < $minLength) {
 }
 
 if (!is_array($iblockIds) || empty($iblockIds)) {
-    $iblockIds = [1, 3, 4, 5, 6, 11];
+    $iblockIds = IBLOCK_IDS_ALL_CATALOG;
 }
 
 $debugLog['iblock_ids'] = $iblockIds;

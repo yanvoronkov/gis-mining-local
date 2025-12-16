@@ -30,7 +30,7 @@ class SearchConfig
     /**
      * ID инфоблоков для поиска по умолчанию
      */
-    const DEFAULT_IBLOCK_IDS = [1, 3, 4, 5, 6, 11];
+    const DEFAULT_IBLOCK_IDS = IBLOCK_IDS_ALL_CATALOG;
 
     /**
      * Получить значение конфигурации

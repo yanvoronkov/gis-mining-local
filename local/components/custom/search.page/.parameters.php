@@ -14,7 +14,7 @@ $arComponentParameters = array(
             "NAME" => "ID инфоблоков для поиска",
             "TYPE" => "STRING",
             "MULTIPLE" => "Y",
-            "DEFAULT" => array(1, 3, 4, 5, 6, 11),
+            "DEFAULT" => IBLOCK_IDS_ALL_CATALOG,
         ),
         "PAGE_RESULT_COUNT" => array(
             "PARENT" => "BASE",

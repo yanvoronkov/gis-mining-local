@@ -86,7 +86,7 @@ if (!CModule::IncludeModule("iblock")) {
                 <?php
                 $APPLICATION->IncludeComponent(
                     "bitrix:system.pagenavigation",
-                    "catalog_new",
+                    PAGER_TEMPLATE,
                     array(
                         "NAV_RESULT" => $arResult["NAV_RESULT"],
                         "SHOW_ALWAYS" => "Y",

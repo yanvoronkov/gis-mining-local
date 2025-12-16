@@ -18,7 +18,9 @@ if (!Loader::includeModule('catalog')) {
 }
 
 // Получаем параметры компонента
-$arParams["IBLOCK_IDS"] = is_array($arParams["IBLOCK_IDS"]) ? $arParams["IBLOCK_IDS"] : array(1, 3, 4, 5, 6, 11);
+$arParams["IBLOCK_IDS"] = is_array($arParams["IBLOCK_IDS"]) && !empty($arParams["IBLOCK_IDS"])
+    ? $arParams["IBLOCK_IDS"]
+    : IBLOCK_IDS_ALL_CATALOG;
 $arParams["MIN_QUERY_LENGTH"] = intval($arParams["MIN_QUERY_LENGTH"]) > 0 ? intval($arParams["MIN_QUERY_LENGTH"]) : SearchConfig::get('MIN_QUERY_LENGTH');
 $arParams["MAX_RESULTS"] = intval($arParams["MAX_RESULTS"]) > 0 ? intval($arParams["MAX_RESULTS"]) : 10;
 $arParams["SHOW_PRICE"] = $arParams["SHOW_PRICE"] !== "N" ? "Y" : "N";

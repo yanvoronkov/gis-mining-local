@@ -28,7 +28,7 @@
             </div>
             <div class="form-group form-check mb-3">
               <input type="checkbox" id="privacy-policy-feedback" name="privacy-policy" class="form-check-input" required>
-               <label for="privacy-policy-popup" class="form-check-label">Согласен(а) с <a href="/policy-confidenciales/" target="_blank"><u>политикой конфиденциальности</u></a> и с <a href="/soglasie-s-obrabotkoy/" target="_blank"><u>обработкой персональных данных</u></a></label>
+              <label for="privacy-policy-feedback" class="form-check-label">Согласен(а) с <a href="/policy-confidenciales/" target="_blank"><u>политикой конфиденциальности</u></a></label>
             </div>
             <!-- Сообщения об ошибке -->
             <p class="form-error-message"></p>

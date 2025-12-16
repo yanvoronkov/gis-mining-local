@@ -1,5 +1,6 @@
 <?php
-if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
+    die();
 
 /**
  * Стандартный шаблон хлебных крошек Битрикса
@@ -9,7 +10,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 global $APPLICATION;
 
 // Не выводим ничего, если хлебных крошек нет
-if(empty($arResult)) {
+if (empty($arResult)) {
     return "";
 }
 
@@ -22,9 +23,11 @@ if (in_array($currentPageFile, $excludePages)) {
 }
 
 // Проверяем 404 страницы
-if (http_response_code() === 404 || 
+if (
+    http_response_code() === 404 ||
     (defined('ERROR_404') && ERROR_404 === true) ||
-    (isset($APPLICATION->arResult['ERROR_404']) && $APPLICATION->arResult['ERROR_404'] === true)) {
+    (isset($APPLICATION->arResult['ERROR_404']) && $APPLICATION->arResult['ERROR_404'] === true)
+) {
     return "";
 }
 
@@ -32,32 +35,31 @@ if (http_response_code() === 404 ||
 $itemListElement = [];
 $itemCount = count($arResult);
 
-for($index = 0; $index < $itemCount; ++$index) {
+for ($index = 0; $index < $itemCount; ++$index) {
     $title = htmlspecialcharsex($arResult[$index]["TITLE"]);
     $link = $arResult[$index]["LINK"];
-    
+
     // Формируем элемент списка
     $listItem = [
         '@type' => 'ListItem',
         'position' => $index + 1,
         'name' => $title
     ];
-    
-    // Добавляем поле item только если есть ссылка
+
+    // Формируем полный URL
+    $protocol = CMain::IsHTTPS() ? "https" : "http";
+    $domain = $_SERVER['HTTP_HOST'];
+    $cleanDomain = preg_replace('/:\d+$/', '', $domain);
+
+    // Если есть ссылка - используем её, иначе текущий URL страницы
     if ($link <> "") {
-        $protocol = CMain::IsHTTPS() ? "https" : "http";
-        $domain = $_SERVER['HTTP_HOST'];
-        $cleanDomain = preg_replace('/:\d+$/', '', $domain);
         $listItem['item'] = $protocol . '://' . $cleanDomain . $link;
     } else {
-        // Для последнего элемента используем URL текущей страницы
-        $protocol = CMain::IsHTTPS() ? "https" : "http";
-        $domain = $_SERVER['HTTP_HOST'];
-        $cleanDomain = preg_replace('/:\d+$/', '', $domain);
-        $currentUrl = $protocol . '://' . $cleanDomain . $APPLICATION->GetCurPage();
-        $listItem['item'] = $currentUrl;
+        // Для последнего элемента (текущей страницы) используем полный URL
+        $currentUri = $_SERVER['REQUEST_URI'];
+        $listItem['item'] = $protocol . '://' . $cleanDomain . $currentUri;
     }
-    
+
     $itemListElement[] = $listItem;
 }
 
@@ -68,35 +70,40 @@ $schema = [
     'itemListElement' => $itemListElement
 ];
 
-// Выводим JSON-LD микроразметку через AddViewContent для корректного размещения перед </body>
-$APPLICATION->AddViewContent('before_body_close', '<script type="application/ld+json">' . json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) . '</script>');
+// Вывод схемы через ViewContent (будет показано в footer.php)
+$APPLICATION->AddViewContent('json_ld_schemas', '<script type="application/ld+json">' . "\n" .
+    json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) .
+    "\n" . '</script>' . "\n");
+
 
 // --- ВЫВОД ВИЗУАЛЬНЫХ ХЛЕБНЫХ КРОШЕК ---
 $strReturn = '<nav class="breadcrumbs container" aria-label="Хлебные крошки">';
 
-for($index = 0; $index < $itemCount; ++$index) {
+for ($index = 0; $index < $itemCount; ++$index) {
     $title = htmlspecialcharsex($arResult[$index]["TITLE"]);
     $link = $arResult[$index]["LINK"];
     $isLast = ($index === $itemCount - 1);
-    
-    if($link <> "" && !$isLast) {
-        // Обычные ссылки (не последний элемент)
+
+    // Выводим элемент (со ссылкой или без)
+    if ($link <> "" && !$isLast) {
+        // Элемент со ссылкой (не последний)
         $strReturn .= '
             <a href="' . $link . '" class="breadcrumbs__item">
                 <span>' . $title . '</span>
             </a>';
-        
-        // Разделитель (кроме последнего элемента)
-        if ($arParams["SHOW_SEPARATOR"] !== "N") {
-            $separator = $arParams["SEPARATOR"] ?: '/';
-            $strReturn .= '<span class="breadcrumbs__separator" aria-hidden="true">' . htmlspecialcharsex($separator) . '</span>';
-        }
     } else {
-        // Последний элемент (текущая страница)
+        // Элемент без ссылки (последний или без ссылки)
+        $class = $isLast ? 'breadcrumbs__item breadcrumbs__item--current' : 'breadcrumbs__item';
         $strReturn .= '
-            <span class="breadcrumbs__item breadcrumbs__item--current">
+            <span class="' . $class . '">
                 <span>' . $title . '</span>
             </span>';
+    }
+
+    // Разделитель добавляется после всех элементов, кроме последнего
+    if (!$isLast && $arParams["SHOW_SEPARATOR"] !== "N") {
+        $separator = $arParams["SEPARATOR"] ?: '/';
+        $strReturn .= '<span class="breadcrumbs__separator" aria-hidden="true">' . htmlspecialcharsex($separator) . '</span>';
     }
 }
 

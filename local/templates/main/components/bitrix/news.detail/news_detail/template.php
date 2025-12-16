@@ -178,7 +178,7 @@ if (!empty($content)) {
                     <button type="submit" class="btn btn-primary contact-form__submit">Отправить</button>
                     <div class="form-group form-check mb-3">
                         <input type="checkbox" id="privacy-policy-feedback" name="privacy-policy" class="form-check-input" required="">
-                         <label for="privacy-policy-popup" class="form-check-label">Согласен(а) с <a href="/policy-confidenciales/" target="_blank"><u>политикой конфиденциальности</u></a> и с <a href="/soglasie-s-obrabotkoy/" target="_blank"><u>обработкой персональных данных</u></a></label>
+                        <label for="privacy-policy-feedback" class="form-check-label">Согласен(а) с <a href="/policy-confidenciales/" target="_blank"><u>политикой конфиденциальности</u></a></label>
                     </div>
                     <!-- Сообщения об ошибке -->
                     <p class="form-error-message"></p>
@@ -224,10 +224,8 @@ if (!empty($content)) {
                 </div>
             </div>
         </div>
-
-        <!-- Похожие статьи - СТАРЫЙ КОД (ЗАКОММЕНТИРОВАН) -->
+        <!-- Похожие статьи -->
         <?php
-        /*
         $similarArticles = CIBlockElement::GetList(
             array("SORT" => "ASC"),
             array(
@@ -281,15 +279,12 @@ if (!empty($content)) {
                     <?php endwhile; ?>
                 </div>
             </div>
-        <?php endif;
-        */
-        ?>
+        <?php endif; ?>
     </div>
 
-    <!-- Просмотренные статьи - ЗАКОММЕНТИРОВАН -->
+    <!-- Просмотренные статьи -->
     <?php
     // Новый компонент просмотренных статей через LocalStorage
-    /*
     $APPLICATION->IncludeComponent(
         "custom:viewed.articles",
         "",
@@ -307,22 +302,6 @@ if (!empty($content)) {
                 "ACTIVE_FROM" => $arResult["ACTIVE_FROM"],
                 "PROPERTY_TAGS_VALUE" => $arResult["PROPERTIES"]["TAGS"]["VALUE"] ?? array()
             )
-        ),
-        false
-    );
-    */
-    ?>
-
-    <!-- Читайте также - НОВЫЙ КОМПОНЕНТ -->
-    <?php
-    $APPLICATION->IncludeComponent(
-        "custom:similar.articles",
-        "",
-        array(
-            "IBLOCK_ID" => $arParams["IBLOCK_ID"],
-            "CURRENT_ARTICLE_ID" => $arResult["ID"],
-            "BASE_URL" => "/news/",
-            "LIMIT" => 5
         ),
         false
     );

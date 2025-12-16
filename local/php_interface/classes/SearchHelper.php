@@ -19,12 +19,12 @@ class SearchHelper
         6 => ['CONTAINER_SIZE', 'CAPACITY'], // Контейнеры
         11 => ['MANUFACTURER', 'CRYPTO', 'HASHRATE'], // Видеокарты
     ];
-    
+
     /**
      * Названия инфоблоков (кеш)
      */
     private static $iblockNames = [];
-    
+
     /**
      * Обогащает массив товаров данными (цена, картинка, свойства)
      * 
@@ -36,13 +36,13 @@ class SearchHelper
         if (empty($productIds)) {
             return [];
         }
-        
+
         // Подключаем модули
         Loader::includeModule('iblock');
         Loader::includeModule('catalog');
-        
+
         $result = [];
-        
+
         // Получаем базовые данные элементов
         $arSelect = [
             'ID',
@@ -54,7 +54,7 @@ class SearchHelper
             'PREVIEW_TEXT',
             'DETAIL_PAGE_URL',
         ];
-        
+
         $rsElements = CIBlockElement::GetList(
             ['ID' => 'ASC'],
             ['ID' => $productIds, 'ACTIVE' => 'Y'],
@@ -62,16 +62,16 @@ class SearchHelper
             false,
             $arSelect
         );
-        
+
         while ($arElement = $rsElements->GetNext()) {
             $productId = $arElement['ID'];
             $iblockId = $arElement['IBLOCK_ID'];
-            
+
             // Пропускаем товары без кода (они не могут иметь URL)
             if (empty($arElement['CODE'])) {
                 continue;
             }
-            
+
             $result[$productId] = [
                 'ID' => $productId,
                 'NAME' => $arElement['NAME'],
@@ -85,10 +85,10 @@ class SearchHelper
                 'IBLOCK_NAME' => self::getIblockName($iblockId),
             ];
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Получает изображение товара (оригинальный размер, как в каталоге)
      * 
@@ -98,14 +98,14 @@ class SearchHelper
     private static function getProductImage($arElement)
     {
         $imageId = null;
-        
+
         // Приоритет: PREVIEW_PICTURE -> DETAIL_PICTURE
         if (!empty($arElement['PREVIEW_PICTURE'])) {
             $imageId = $arElement['PREVIEW_PICTURE'];
         } elseif (!empty($arElement['DETAIL_PICTURE'])) {
             $imageId = $arElement['DETAIL_PICTURE'];
         }
-        
+
         if ($imageId) {
             try {
                 // Получаем оригинальное изображение, без ресайза (как в каталоге)
@@ -117,11 +117,11 @@ class SearchHelper
                 // В случае ошибки возвращаем пустую строку
             }
         }
-        
+
         // Заглушка, если нет изображения
         return '';
     }
-    
+
     /**
      * Получает цену товара
      * 
@@ -132,7 +132,7 @@ class SearchHelper
     {
         try {
             $arPrice = CCatalogProduct::GetOptimalPrice($productId, 1);
-            
+
             if ($arPrice && isset($arPrice['RESULT_PRICE']['DISCOUNT_PRICE'])) {
                 $price = $arPrice['RESULT_PRICE']['DISCOUNT_PRICE'];
                 if ($price > 0) {
@@ -142,10 +142,10 @@ class SearchHelper
         } catch (Exception $e) {
             // Игнорируем ошибки получения цены
         }
-        
+
         return null;
     }
-    
+
     /**
      * Получает только нужные свойства для конкретного инфоблока
      * 
@@ -158,20 +158,22 @@ class SearchHelper
         if (!isset(self::$displayProperties[$iblockId])) {
             return [];
         }
-        
+
         $result = [];
-        
+
         try {
             $rsProps = CIBlockElement::GetProperty($iblockId, $productId, [], []);
-            
+
             while ($arProp = $rsProps->GetNext()) {
-                if (!empty($arProp['VALUE']) && 
-                    !empty($arProp['CODE']) && 
-                    in_array($arProp['CODE'], self::$displayProperties[$iblockId])) {
-                    
+                if (
+                    !empty($arProp['VALUE']) &&
+                    !empty($arProp['CODE']) &&
+                    in_array($arProp['CODE'], self::$displayProperties[$iblockId])
+                ) {
+
                     // Для свойств-списков берем текстовое значение
                     $displayValue = $arProp['VALUE'];
-                    
+
                     if ($arProp['PROPERTY_TYPE'] == 'L' && !empty($arProp['VALUE_ENUM'])) {
                         // Свойство типа "Список" - берем текстовое значение
                         $displayValue = $arProp['VALUE_ENUM'];
@@ -182,7 +184,7 @@ class SearchHelper
                         // Числовое свойство
                         $displayValue = $arProp['VALUE'];
                     }
-                    
+
                     $result[$arProp['CODE']] = [
                         'CODE' => $arProp['CODE'],
                         'NAME' => $arProp['NAME'],
@@ -193,10 +195,10 @@ class SearchHelper
         } catch (Exception $e) {
             // Игнорируем ошибки получения свойств
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Получает название инфоблока
      * 
@@ -209,10 +211,10 @@ class SearchHelper
             $arIblock = CIBlock::GetByID($iblockId)->Fetch();
             self::$iblockNames[$iblockId] = $arIblock['NAME'] ?? '';
         }
-        
+
         return self::$iblockNames[$iblockId];
     }
-    
+
     /**
      * Формирует URL товара в зависимости от инфоблока
      * 
@@ -230,12 +232,12 @@ class SearchHelper
             4 => '/catalog/product/' . $code . '/',    // Инвестиции
             6 => '/catalog/product/' . $code . '/',    // Контейнеры
         ];
-        
+
         return $urlMap[$iblockId] ?? '/catalog/product/' . $code . '/';
     }
     /**
      * Выполняет поиск товаров
-     *
+     * 
      * @param string $query Поисковый запрос
      * @param array $params Параметры поиска (IBLOCK_IDS, MIN_LENGTH, MAX_RESULTS, OFFSET)
      * @return array Результат поиска ['items' => [], 'total' => 0]
@@ -243,7 +245,7 @@ class SearchHelper
     public static function searchProducts($query, $params = [])
     {
         $query = trim($query);
-        $iblockIds = $params['IBLOCK_IDS'] ?? [1, 3, 4, 5, 6, 11];
+        $iblockIds = $params['IBLOCK_IDS'] ?? IBLOCK_IDS_ALL_CATALOG;
         $minLength = $params['MIN_LENGTH'] ?? SearchConfig::get('MIN_QUERY_LENGTH');
         $maxResults = $params['MAX_RESULTS'] ?? 10;
         $offset = $params['OFFSET'] ?? 0;

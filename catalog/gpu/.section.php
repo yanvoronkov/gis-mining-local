@@ -1,3 +1,3 @@
 <?php
-$sSectionName = "GPU-майнеры";
+$sSectionName = "GPU";
 ?>

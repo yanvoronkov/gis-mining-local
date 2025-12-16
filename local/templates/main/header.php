@@ -1,7 +1,7 @@
 <?php
 // Проверка на прямое подключение файла. Обязательная строка безопасности Битрикс.
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
-	die();
+    die();
 
 ?>
 <!DOCTYPE html>
@@ -12,19 +12,19 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="format-detection" content="telephone=no">
-<!--    <meta http-equiv="x-rim-auto-match" content="none">-->
+    <!--    <meta http-equiv="x-rim-auto-match" content="none">-->
     <title><?php $APPLICATION->ShowTitle(); ?></title>
     <style>
         <?php echo file_get_contents($_SERVER['DOCUMENT_ROOT'] . SITE_TEMPLATE_PATH . '/assets/css/critical.css'); ?>
     </style>
-    
+
     <script>
-    window.YM_ID = 102682922; // Замените на ваш реальный ID метрики
-  </script>
+        window.YM_ID = 102682922; // Замените на ваш реальный ID метрики
+    </script>
 
     <?php
 
-	// --- НАЧАЛО БЛОКА УПРАВЛЕНИЯ АССЕТАМИ ---
+    // --- НАЧАЛО БЛОКА УПРАВЛЕНИЯ АССЕТАМИ ---
     use Bitrix\Main\Page\Asset;
 
 
@@ -32,57 +32,58 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
     Asset::getInstance()->addString('<link rel="preconnect" href="https://fonts.googleapis.com">');
     Asset::getInstance()->addString('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>');
 
-	// 1. РЕГИСТРАЦИЯ CSS ФАЙЛОВ
+    // 1. РЕГИСТРАЦИЯ CSS ФАЙЛОВ
+    
+    // Основной CSS
+    Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/assets/css/main.css?v=1.1.48", false, true);
+    Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/assets/css/blocks/product-card.css?v=1.0.0", false, true);
 
-	// Основной CSS
-	Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/assets/css/main.css?v=1.1.48", false, true);
-
-//	Asset::getInstance()->addCss("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css");
+    //	Asset::getInstance()->addCss("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css");
 //    Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/assets/vendor/css/bootstrap.min.css");
-
-//    Asset::getInstance()->addCss("https://unpkg.com/swiper/swiper-bundle.min.css");
+    
+    //    Asset::getInstance()->addCss("https://unpkg.com/swiper/swiper-bundle.min.css");
     Asset::getInstance()->addCss(SITE_TEMPLATE_PATH . "/assets/vendor/css/swiper-bundle.min.css");
 
-	// 2. РЕГИСТРАЦИЯ JAVASCRIPT ФАЙЛОВ В ПРАВИЛЬНОМ ПОРЯДКЕ
-	// Второй параметр "true" указывает Битриксу переместить тег <script> в конец <body>
-
-	// --- ШАГ 1: Основные библиотеки ---
+    // 2. РЕГИСТРАЦИЯ JAVASCRIPT ФАЙЛОВ В ПРАВИЛЬНОМ ПОРЯДКЕ
+    // Второй параметр "true" указывает Битриксу переместить тег <script> в конец <body>
+    
+    // --- ШАГ 1: Основные библиотеки ---
 //	Asset::getInstance()->addString('<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>', true);
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/vendor/js/jquery-3.6.0.min.js", true);
-//
+    //
 //	// --- ШАГ 2: Дополнительные библиотеки ---
 //	Asset::getInstance()->addJs("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js", true);
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/vendor/js/bootstrap.bundle.min.js", true);
-//	Asset::getInstance()->addJs("https://unpkg.com/swiper/swiper-bundle.min.js", true);
+    //	Asset::getInstance()->addJs("https://unpkg.com/swiper/swiper-bundle.min.js", true);
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/vendor/js/swiper-bundle.min.js", true);
-//	Asset::getInstance()->addJs("https://unpkg.com/imask", true);
+    //	Asset::getInstance()->addJs("https://unpkg.com/imask", true);
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/vendor/js/imask.min.js", true);
 
 
-	// --- ШАГ 3: Ваши кастомные скрипты, которые используют эти библиотеки ---
+    // --- ШАГ 3: Ваши кастомные скрипты, которые используют эти библиотеки ---
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/form-actions.js", true);
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/cart.js?v=1.1.1", true);
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/main.js?v=1.1.1", true);
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/native-slider.js?v=1.1.1", true);
-	Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/sliders.js?v=1.1.1", true);
-	Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/load-more.js?v=1.1.1", true);
-	Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/components.js?v=1.1.1", true);
-	Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/media-mentions.js?v=1.1.1", true);
-	Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/copy-text.js?v=1.1.1", true);
+    Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/sliders.js?v=1.1.1", true);
+    Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/load-more.js?v=1.1.1", true);
+    Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/components.js?v=1.1.1", true);
+    Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/media-mentions.js?v=1.1.1", true);
+    Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/assets/js/copy-text.js?v=1.1.1", true);
 
-	// 4. РЕГИСТРАЦИЯ СКРИПТОВ-СЧЕТЧИКОВ
-	// Оборачиваем внешние скрипты в addString, чтобы централизовать управление ими.
-	// Одинарные кавычки '...' используются, чтобы не экранировать кавычки внутри скриптов.
-	Asset::getInstance()->addString('<script>(function(w,d,u){var s=d.createElement(\'script\');s.async=true;s.src=u+\'?\'+(Date.now()/60000|0);var h=d.getElementsByTagName(\'script\')[0];h.parentNode.insertBefore(s,h);})(window,document,\'https://cdn-ru.bitrix24.ru/b26737746/crm/site_button/loader_2_j29xo7.js\');</script>');
-//	Asset::getInstance()->addString('<script>(function(w,d,n,c){w.CalltouchDataObject=n;w[n]=function(){w[n]["callbacks"].push(arguments);};if(!w[n]["callbacks"]){w[n]["callbacks"]=[];}w[n]["loaded"]=false;if(typeof c!=="object"){c=[c];}w[n]["counters"]=c;for(var i=0;i<c.length;i+=1){p(c[i]);}function p(cId){var a=d.getElementsByTagName("script")[0],s=d.createElement("script"),ins=function(){a&&a.parentNode?a.parentNode.insertBefore(s,a):(d.head||d.body||d.documentElement).appendChild(s);},m=typeof Array.prototype.find==="function",fN=m?"init-min.js":"init.js";s.async=true;s.src="https://mod.calltouch.ru/"+fN+"?id="+cId;if(w.opera=="[object Opera]"){d.addEventListener("DOMContentLoaded",ins,false);}else{ins();}}})(window,document,"ct","wqdys6ni");</script>');
+    // 4. РЕГИСТРАЦИЯ СКРИПТОВ-СЧЕТЧИКОВ
+    // Оборачиваем внешние скрипты в addString, чтобы централизовать управление ими.
+    // Одинарные кавычки '...' используются, чтобы не экранировать кавычки внутри скриптов.
+    Asset::getInstance()->addString('<script>(function(w,d,u){var s=d.createElement(\'script\');s.async=true;s.src=u+\'?\'+(Date.now()/60000|0);var h=d.getElementsByTagName(\'script\')[0];h.parentNode.insertBefore(s,h);})(window,document,\'https://cdn-ru.bitrix24.ru/b26737746/crm/site_button/loader_2_j29xo7.js\');</script>');
+    //	Asset::getInstance()->addString('<script>(function(w,d,n,c){w.CalltouchDataObject=n;w[n]=function(){w[n]["callbacks"].push(arguments);};if(!w[n]["callbacks"]){w[n]["callbacks"]=[];}w[n]["loaded"]=false;if(typeof c!=="object"){c=[c];}w[n]["counters"]=c;for(var i=0;i<c.length;i+=1){p(c[i]);}function p(cId){var a=d.getElementsByTagName("script")[0],s=d.createElement("script"),ins=function(){a&&a.parentNode?a.parentNode.insertBefore(s,a):(d.head||d.body||d.documentElement).appendChild(s);},m=typeof Array.prototype.find==="function",fN=m?"init-min.js":"init.js";s.async=true;s.src="https://mod.calltouch.ru/"+fN+"?id="+cId;if(w.opera=="[object Opera]"){d.addEventListener("DOMContentLoaded",ins,false);}else{ins();}}})(window,document,"ct","wqdys6ni");</script>');
 //	Asset::getInstance()->addString('<script type="text/javascript">window._ab_id_=158561</script><script src="https://cdn.botfaqtor.ru/one.js" async></script>');
 //	Asset::getInstance()->addString('<script>(function(w,d,s,o){var j=d.createElement(s);j.async=true;j.src=\'//script.marquiz.ru/v2.js\';j.onload=function(){if(document.readyState!==\'loading\')Marquiz.init(o);else document.addEventListener("DOMContentLoaded",function(){Marquiz.init(o);});};d.head.insertBefore(j,d.head.firstElementChild);})(window,document,\'script\',{host:\'//quiz.marquiz.ru\',region:\'ru\',id:\'681f07f0f9beb50019de31fc\',autoOpen:false,autoOpenFreq:\'once\',openOnExit:false,disableOnMobile:false});</script>');
 //	Asset::getInstance()->addString('<script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(102682922,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});</script>');
-
-	// --- КОНЕЦ БЛОКА УПРАВЛЕНИЯ АССЕТАМИ ---
-
+    
+    // --- КОНЕЦ БЛОКА УПРАВЛЕНИЯ АССЕТАМИ ---
+    
     // --- ПОДГОТОВКА ДАННЫХ (НАДЕЖНЫЙ СПОСОБ С ИСПОЛЬЗОВАНИЕМ НАСТРОЕК БИТРИКСА) ---
-
+    
     // Определяем протокол
     $protocol = \Bitrix\Main\Context::getCurrent()->getRequest()->isHttps() ? "https" : "http";
 
@@ -97,30 +98,58 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
     $fullPageUrl = $protocol . '://' . $serverName . $pageUrl;
 
     // Также формируем URL для OG-картинки, чтобы он тоже был правильным
-    $ogImageUrl = $protocol . '://' . $serverName . '/local/templates/main/assets/img/home/home_open-graph_image.png'; // Убедитесь, что путь правильный
+    $ogImageUrl = $protocol . '://' . $serverName . '/local/templates/main/assets/img/home/home_open-graph_image.png';
 
-    // --- ДОПОЛНИТЕЛЬНЫЕ ВАЖНЫЕ ТЕГИ ---
+    // --- ФОРМИРОВАНИЕ CANONICAL URL ---
+    // Canonical должен указывать на базовую версию страницы без:
+    // - GET-параметров (фильтры, utm и т.д.)
+    // - Пагинации (/page-2/, /page-3/)
+    // - Суффикса калькулятора (/calculator-dohodnosti/)
+    
+    $canonicalUrl = $pageUrl;
+
+    // 1. Удаляем пагинацию (если есть)
+    $canonicalUrl = preg_replace('#/page-\d+/?$#', '/', $canonicalUrl);
+
+    // 2. Удаляем суффикс калькулятора (если есть)
+    $canonicalUrl = preg_replace('#/calculator-dohodnosti/?$#', '/', $canonicalUrl);
+
+    // 3. Нормализуем - убираем двойные слеши и добавляем trailing slash
+    $canonicalUrl = preg_replace('#/+#', '/', $canonicalUrl); // Убираем двойные слеши
+    if ($canonicalUrl !== '/' && substr($canonicalUrl, -1) !== '/') {
+        $canonicalUrl .= '/'; // Добавляем trailing slash
+    }
+
+    $fullPageUrl = $protocol . '://' . $serverName . $canonicalUrl;
+
+    // --- УСТАНОВКА CANONICAL URL ---
+    // Устанавливаем через AddHeadString
+    // ShowLink("canonical") может вывести canonical из админки, поэтому используем только AddHeadString
     $APPLICATION->AddHeadString('<link rel="canonical" href="' . $fullPageUrl . '">', true);
+
 
     // --- РЕГИСТРАЦИЯ ОТЛОЖЕННОЙ ФУНКЦИИ ДЛЯ МЕТА-ТЕГОВ ---
     $APPLICATION->AddBufferContent('renderCustomMetaTags');
 
+    // JSON-LD схемы выводятся в footer.php, после выполнения всех компонентов страницы
+    
     // ГЛАВНАЯ ФУНКЦИЯ БИТРИКСА. Выводит все, что мы зарегистрировали выше,
     // а также динамические мета-теги (description, keywords, robots, canonical), которые вы зададите в админке.
     ob_start();
-    
+
     $headContent = ob_get_clean();
 
     // Убираем мета-тег keywords и выводим остальные, заменяя ShowHead() набором отдельных вызовов
     $APPLICATION->ShowMeta("robots");
     $APPLICATION->ShowMeta("description");
-    $APPLICATION->ShowLink("canonical");
+    // ShowLink("canonical") убран - canonical уже установлен через AddHeadString выше
     $APPLICATION->ShowCSS();
     $APPLICATION->ShowHeadStrings();
     $APPLICATION->ShowHeadScripts();
     ?>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
     <!-- Favicon. Их можно оставить как есть, это не критично. -->
@@ -129,46 +158,46 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
 
 
 
-<!-- Yandex.Metrika counter -->
-<script>
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+    <!-- Yandex.Metrika counter -->
+    <script>
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
 
-    ym(102682922, 'init', {webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
-</script>
-<!-- /Yandex.Metrika counter -->
+        ym(102682922, 'init', { webvisor: true, clickmap: true, ecommerce: "dataLayer", accurateTrackBounce: true, trackLinks: true });
+    </script>
+    <!-- /Yandex.Metrika counter -->
 
-<script src='https://senchukov.ru/include/actions-visit.js'></script>
+    <script src='https://senchukov.ru/include/actions-visit.js'></script>
 
-<!-- B242YA start -->
-<script>
-(function(w,d,u){
-  var s=d.createElement('script');s.defer=false;s.async=false;s.id='b242ya-script';s.src=u+'?'+(Date.now()/60000|0);
-  var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);
-})(window,document,'https://67p.b242ya.ru/static/js/b242ya.js');
-var b242yaScript = document.querySelector('#b242ya-script');
-b242yaScript.addEventListener('load', function() {
-  B242YAInit({
-    portal:'https://gis-mining.bitrix24.ru/',
-    pid:'2695fb2ece163b6a16fa9eca9fe14be8',
-    presets:{}
-  }); 
-});
-</script>
-<!-- B242YA end -->
-
-
+    <!-- B242YA start -->
+    <script>
+        (function (w, d, u) {
+            var s = d.createElement('script'); s.defer = false; s.async = false; s.id = 'b242ya-script'; s.src = u + '?' + (Date.now() / 60000 | 0);
+            var h = d.getElementsByTagName('script')[0]; h.parentNode.insertBefore(s, h);
+        })(window, document, 'https://67p.b242ya.ru/static/js/b242ya.js');
+        var b242yaScript = document.querySelector('#b242ya-script');
+        b242yaScript.addEventListener('load', function () {
+            B242YAInit({
+                portal: 'https://gis-mining.bitrix24.ru/',
+                pid: '2695fb2ece163b6a16fa9eca9fe14be8',
+                presets: {}
+            });
+        });
+    </script>
+    <!-- B242YA end -->
 
 
-<!-- calltouch -->
-<script>
-(function(w,d,n,c){w.CalltouchDataObject=n;w[n]=function(){w[n]["callbacks"].push(arguments)};if(!w[n]["callbacks"]){w[n]["callbacks"]=[]}w[n]["loaded"]=false;if(typeof c!=="object"){c=[c]}w[n]["counters"]=c;for(var i=0;i<c.length;i+=1){p(c[i])}function p(cId){var a=d.getElementsByTagName("script")[0],s=d.createElement("script"),i=function(){a.parentNode.insertBefore(s,a)},m=typeof Array.prototype.find === 'function',n=m?"init-min.js":"init.js";s.async=true;s.src="https://mod.calltouch.ru/"+n+"?id="+cId;if(w.opera=="[object Opera]"){d.addEventListener("DOMContentLoaded",i,false)}else{i()}}})(window,document,"ct","wqdys6ni");
-</script>
-<!-- calltouch -->
+
+
+    <!-- calltouch -->
+    <script>
+        (function (w, d, n, c) { w.CalltouchDataObject = n; w[n] = function () { w[n]["callbacks"].push(arguments) }; if (!w[n]["callbacks"]) { w[n]["callbacks"] = [] } w[n]["loaded"] = false; if (typeof c !== "object") { c = [c] } w[n]["counters"] = c; for (var i = 0; i < c.length; i += 1) { p(c[i]) } function p(cId) { var a = d.getElementsByTagName("script")[0], s = d.createElement("script"), i = function () { a.parentNode.insertBefore(s, a) }, m = typeof Array.prototype.find === 'function', n = m ? "init-min.js" : "init.js"; s.async = true; s.src = "https://mod.calltouch.ru/" + n + "?id=" + cId; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", i, false) } else { i() } } })(window, document, "ct", "wqdys6ni");
+    </script>
+    <!-- calltouch -->
 
 
 
@@ -178,10 +207,10 @@ b242yaScript.addEventListener('load', function() {
 </head>
 
 <body>
-<?php
-	// Вывод панели администратора Битрикс. Обязательная функция.
-	$APPLICATION->ShowPanel();
-	?>
+    <?php
+    // Вывод панели администратора Битрикс. Обязательная функция.
+    $APPLICATION->ShowPanel();
+    ?>
 
     <noscript>
         <div><img src="https://mc.yandex.ru/watch/102682922" style="position:absolute; left:-9999px;" alt=""></div>
@@ -189,31 +218,29 @@ b242yaScript.addEventListener('load', function() {
 
     <!-- HEADER -->
     <header class="site-header">
-        <div class="container header__container <?php $APPLICATION->ShowProperty("header_right_class", "");?>">
+        <div class="container header__container <?php $APPLICATION->ShowProperty("header_right_class", ""); ?>">
 
             <div class="site-header__left-side">
-    <a href="/" class="logo header__logo">
-        <picture>
-            <!-- Десктоп -->
-            <source media="(min-width: 768px)" srcset="<?= SITE_TEMPLATE_PATH ?>/assets/img/header/logo-wh-kv.svg" type="image/svg+xml">
-
-            <!-- Мобильный -->
-            <source media="(max-width: 767px)" srcset="<?= SITE_TEMPLATE_PATH ?>/assets/img/header/logo-wh-kv.svg" type="image/svg+xml">
-
-            <!-- Fallback (на случай, если SVG не поддерживается) -->
-            <img src="<?= SITE_TEMPLATE_PATH ?>/assets/img/header/logo-wh-kv.svg"
-                 alt="GIS Mining - Логотип компании"
-                 width="100"
-                 height="40">
-        </picture>
-    </a>
-
+                <a href="/" class="logo header__logo">
+                    <picture>
+                        <source media="(min-width: 768px)"
+                            srcset="<?= SITE_TEMPLATE_PATH ?>/assets/img/header/logo_header_white.webp"
+                            type="image/webp">
+                        <source media="(min-width: 768px)"
+                            srcset="<?= SITE_TEMPLATE_PATH ?>/assets/img/header/logo_header_white.png">
+                        <source media="(max-width: 767px)"
+                            srcset="<?= SITE_TEMPLATE_PATH ?>/assets/img/header/logo_header_white_mobile.webp"
+                            type="image/webp">
+                        <img src="<?= SITE_TEMPLATE_PATH ?>/assets/img/header/logo_header_white_mobile.png"
+                            alt="GIS Mining - Логотип компании" width="100" height="40">
+                    </picture>
+                </a>
                 <div class="header__main-content">
 
                     <?php $APPLICATION->IncludeComponent( // <-- ЭТО ЕДИНСТВЕННОЕ, ЧТО ДОЛЖНО ЗДЕСЬ ОСТАТЬСЯ ОТ МЕНЮ
                         "bitrix:menu",
                         "header_desktop",
-                        Array(
+                        array(
                             "ALLOW_MULTI_SELECT" => "N",
                             "CHILD_MENU_TYPE" => "left",
                             "DELAY" => "N",
@@ -224,11 +251,11 @@ b242yaScript.addEventListener('load', function() {
                             "ROOT_MENU_TYPE" => "top",
                             "USE_EXT" => "N", // Это должно быть "N"
                         )
-                    );?>
+                    ); ?>
                 </div>
             </div>
 
-            <div class="site-header__right-side <?php $APPLICATION->ShowProperty("header_right_class", "");?>">
+            <div class="site-header__right-side <?php $APPLICATION->ShowProperty("header_right_class", ""); ?>">
                 <div class="header__contacts-social">
 
                     <!-- 1. ИКОНКА КОРЗИНЫ -->
@@ -239,14 +266,14 @@ b242yaScript.addEventListener('load', function() {
                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                                 <g id="SVGRepo_iconCarrier">
                                     <path
-                                            d="M3.5 4.5H5.05848C5.7542 4.5 6.10206 4.5 6.36395 4.68876C6.62584 4.87752 6.73584 5.20753 6.95585 5.86754L7.5 7.5"
-                                            stroke="#545454" stroke-linecap="round"></path>
+                                        d="M3.5 4.5H5.05848C5.7542 4.5 6.10206 4.5 6.36395 4.68876C6.62584 4.87752 6.73584 5.20753 6.95585 5.86754L7.5 7.5"
+                                        stroke="#545454" stroke-linecap="round"></path>
                                     <path
-                                            d="M17.5 17.5H8.05091C7.90471 17.5 7.83162 17.5 7.77616 17.4938C7.18857 17.428 6.78605 16.8695 6.90945 16.2913C6.92109 16.2367 6.94421 16.1674 6.99044 16.0287V16.0287C7.04177 15.8747 7.06743 15.7977 7.09579 15.7298C7.38607 15.0342 8.04277 14.5608 8.79448 14.5054C8.8679 14.5 8.94906 14.5 9.11137 14.5H14.5"
-                                            stroke="#545454" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        d="M17.5 17.5H8.05091C7.90471 17.5 7.83162 17.5 7.77616 17.4938C7.18857 17.428 6.78605 16.8695 6.90945 16.2913C6.92109 16.2367 6.94421 16.1674 6.99044 16.0287V16.0287C7.04177 15.8747 7.06743 15.7977 7.09579 15.7298C7.38607 15.0342 8.04277 14.5608 8.79448 14.5054C8.8679 14.5 8.94906 14.5 9.11137 14.5H14.5"
+                                        stroke="#545454" stroke-linecap="round" stroke-linejoin="round"></path>
                                     <path
-                                            d="M14.1787 14.5H11.1376C9.85836 14.5 9.21875 14.5 8.71781 14.1697C8.21687 13.8394 7.96492 13.2515 7.461 12.0757L7.29218 11.6818C6.48269 9.79294 6.07794 8.84853 6.52255 8.17426C6.96715 7.5 7.99464 7.5 10.0496 7.5H15.3305C17.6295 7.5 18.779 7.5 19.2126 8.24711C19.6462 8.99422 19.0758 9.99229 17.9352 11.9884L17.6517 12.4846C17.0897 13.4679 16.8088 13.9596 16.3432 14.2298C15.8776 14.5 15.3113 14.5 14.1787 14.5Z"
-                                            stroke="#545454" stroke-linecap="round"></path>
+                                        d="M14.1787 14.5H11.1376C9.85836 14.5 9.21875 14.5 8.71781 14.1697C8.21687 13.8394 7.96492 13.2515 7.461 12.0757L7.29218 11.6818C6.48269 9.79294 6.07794 8.84853 6.52255 8.17426C6.96715 7.5 7.99464 7.5 10.0496 7.5H15.3305C17.6295 7.5 18.779 7.5 19.2126 8.24711C19.6462 8.99422 19.0758 9.99229 17.9352 11.9884L17.6517 12.4846C17.0897 13.4679 16.8088 13.9596 16.3432 14.2298C15.8776 14.5 15.3113 14.5 14.1787 14.5Z"
+                                        stroke="#545454" stroke-linecap="round"></path>
                                     <circle cx="17" cy="20" r="1" fill="#545454"></circle>
                                     <circle cx="9" cy="20" r="1" fill="#545454"></circle>
                                 </g>
@@ -268,7 +295,7 @@ b242yaScript.addEventListener('load', function() {
                                         fill="#5B61FF" />
                                 </svg>
                             </a> -->
-                        <a href="/mining-calculator" target="_blank" rel="noopener noreferrer"
+                        <a href="#" target="_blank" rel="noopener noreferrer"
                             class="header__subscribe-icon header__subscribe-icon--calc" aria-label="VC.ru">
                             <span class="header__subscribe-text">Калькулятор</span>
                             <svg width="33" height="33" viewBox="0 0 33 33" fill="none"
@@ -284,9 +311,9 @@ b242yaScript.addEventListener('load', function() {
                     <div class="header__phone-social-links">
 
                         <div class="header__phone-numbers-desktop">
-                            <!-- <a href="tel:+74951919874" class="header__phone-number">
+                            <a href="tel:+74951919874" class="header__phone-number">
                                 +7 (495) 191-98-74
-                            </a> -->
+                            </a>
                             <a href="tel:+78007777798" class="header__phone-number">
                                 +7 (800) 777-77-98
                             </a>
@@ -302,19 +329,19 @@ b242yaScript.addEventListener('load', function() {
 
 
                             <label for="phone-toggle" class="header__phone-icon-trigger"
-                                   aria-label="Показать номера телефонов">
+                                aria-label="Показать номера телефонов">
                                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
                                     <rect width="25" height="25" fill="url(#pattern_phone_icon_nojs)"></rect>
                                     <defs>
                                         <pattern id="pattern_phone_icon_nojs" patternContentUnits="objectBoundingBox"
-                                                 width="1" height="1">
+                                            width="1" height="1">
                                             <use xlink:href="#image_phone_icon_nojs" transform="scale(0.02)"></use>
                                         </pattern>
                                         <image id="image_phone_icon_nojs" width="50" height="50"
-                                               preserveAspectRatio="none"
-                                               xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACEElEQVR4nO3ZzYtNYRzA8Z/XUWJDGKJk5WUpWUrsyEYUNanBn6D8BbLDCv+BxcR4jSxQkxoLRnmLImXl5UZIqI9OcxY3Zu7c59zuuc9kPn/B/fac+5zn+Z2IGTN6B3swii94gK0xnWAezvpXA6tiOsAiXDe5a5E7rMQTUxuIXGE5XmjPJ/RHbjAfI9IMR25wXDUHIyd4UzHkA1ZELvBVdUORC7zUmf2RAwx1GPI8coCjHYZ8jxxgGX53EHI/coHbHYQM5HbSreIRZkcuMAtjFUJ2Rm6wLzHicuTI+KrcSwgZjFxhI34mnILXRa5wMmFVHmJh5Ah95Q9sV7F190WOsAHfEmIuYm7kCEekOV9sGJEjE09TWjkVGY+G7iTGnM5yZYwPJl5VeMzmRG6wBm8TYy5hQeQGm/AxMebmRO+ZYrVwqBzF/sKz4ohUZ8yWchacYqz5BIDtLd5TV4pBYV0xO/AjMaY4zgziapvTmQN13l9SY1T4j/XXEbOtwmOWqlHMFOqI2Yz3uu8GVtdx9H9XQ0yj2Gy6HbO2wkuzitGuhjSNlVJumFV87npI0yeKc10MGaklpCnocOJ9pl27ag0pY9Yn3jSncqb2iL+uzScSBhqttt/e30DLLfquah5jcWQ2N9ub+Lg9Le5DkaMyaDdulUf4yRRb+dKYDrCkPBVfKD4YlZ8BX+NYcc3u9e+b8d/6A8BzVur0abPMAAAAAElFTkSuQmCC">
+                                            preserveAspectRatio="none"
+                                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACEElEQVR4nO3ZzYtNYRzA8Z/XUWJDGKJk5WUpWUrsyEYUNanBn6D8BbLDCv+BxcR4jSxQkxoLRnmLImXl5UZIqI9OcxY3Zu7c59zuuc9kPn/B/fac+5zn+Z2IGTN6B3swii94gK0xnWAezvpXA6tiOsAiXDe5a5E7rMQTUxuIXGE5XmjPJ/RHbjAfI9IMR25wXDUHIyd4UzHkA1ZELvBVdUORC7zUmf2RAwx1GPI8coCjHYZ8jxxgGX53EHI/coHbHYQM5HbSreIRZkcuMAtjFUJ2Rm6wLzHicuTI+KrcSwgZjFxhI34mnILXRa5wMmFVHmJh5Ah95Q9sV7F190WOsAHfEmIuYm7kCEekOV9sGJEjE09TWjkVGY+G7iTGnM5yZYwPJl5VeMzmRG6wBm8TYy5hQeQGm/AxMebmRO+ZYrVwqBzF/sKz4ohUZ8yWchacYqz5BIDtLd5TV4pBYV0xO/AjMaY4zgziapvTmQN13l9SY1T4j/XXEbOtwmOWqlHMFOqI2Yz3uu8GVtdx9H9XQ0yj2Gy6HbO2wkuzitGuhjSNlVJumFV87npI0yeKc10MGaklpCnocOJ9pl27ag0pY9Yn3jSncqb2iL+uzScSBhqttt/e30DLLfquah5jcWQ2N9ub+Lg9Le5DkaMyaDdulUf4yRRb+dKYDrCkPBVfKD4YlZ8BX+NYcc3u9e+b8d/6A8BzVur0abPMAAAAAElFTkSuQmCC">
                                         </image>
                                     </defs>
                                 </svg>
@@ -331,52 +358,50 @@ b242yaScript.addEventListener('load', function() {
                         </div>
 
                         <!-- Иконка почты -->
-<a href="mailto:info@gis-corp.ru" class="header__email-mobile" aria-label="Написать на почту">
-    <svg width="25" height="25" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 
+                        <a href="mailto:info@gis-corp.ru" class="header__email-mobile" aria-label="Написать на почту">
+                            <svg width="25" height="25" viewBox="0 0 24 24" fill="white"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 
                  20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 6V7.17L12 
-                 13L4 7.17V6H20ZM4 18V9L12 14.83L20 9V18H4Z"/>
-    </svg>
-</a>
+                 13L4 7.17V6H20ZM4 18V9L12 14.83L20 9V18H4Z" />
+                            </svg>
+                        </a>
 
 
 
                         <div class="header__social-icons">
-                            <a
-                                id="wa-link-header-desktop"
-                                href="https://api.whatsapp.com/send/?phone=%2B79311116071" target="_blank"
-                               rel="noopener noreferrer nofollow" class="header__social-icon header__social-icon--whatsapp"
-                               aria-label="WhatsApp">
+                            <a id="wa-link-header-desktop" href="https://api.whatsapp.com/send/?phone=%2B79311116071"
+                                target="_blank" rel="noopener noreferrer nofollow"
+                                class="header__social-icon header__social-icon--whatsapp" aria-label="WhatsApp">
                                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_5008_10889)">
                                         <rect y="3.05176e-05" width="32" height="32" fill="white" />
                                         <path
-                                                d="M20.8007 17.4924C20.7618 17.4737 19.3037 16.7557 19.0446 16.6625C18.9388 16.6245 18.8255 16.5874 18.7049 16.5874C18.508 16.5874 18.3426 16.6855 18.2138 16.8783C18.0681 17.0948 17.6272 17.6102 17.491 17.7641C17.4732 17.7845 17.4489 17.8088 17.4343 17.8088C17.4213 17.8088 17.1956 17.7158 17.1273 17.6861C15.5631 17.0067 14.3759 15.3728 14.2131 15.0973C14.1898 15.0576 14.1889 15.0397 14.1887 15.0397C14.1944 15.0187 14.247 14.9659 14.2741 14.9387C14.3535 14.8602 14.4396 14.7566 14.5228 14.6564C14.5623 14.6089 14.6017 14.5614 14.6405 14.5166C14.7613 14.376 14.8151 14.267 14.8774 14.1406L14.9101 14.0749C15.0623 13.7725 14.9323 13.5173 14.8903 13.4349C14.8558 13.3659 14.2401 11.88 14.1746 11.7239C14.0172 11.3472 13.8092 11.1718 13.5202 11.1718C13.4934 11.1718 13.5202 11.1718 13.4077 11.1765C13.2708 11.1823 12.5249 11.2805 12.1952 11.4884C11.8455 11.7088 11.2539 12.4116 11.2539 13.6475C11.2539 14.7598 11.9598 15.8101 12.2629 16.2095C12.2704 16.2196 12.2842 16.24 12.3043 16.2694C13.4649 17.9644 14.9118 19.2206 16.3786 19.8065C17.7907 20.3706 18.4593 20.4358 18.8395 20.4358H18.8395C18.9993 20.4358 19.1272 20.4232 19.24 20.4121L19.3115 20.4053C19.7993 20.3621 20.8713 19.8066 21.1152 19.1289C21.3073 18.5952 21.3579 18.0121 21.2301 17.8004C21.1426 17.6565 20.9917 17.5841 20.8007 17.4924Z"
-                                                fill="#18A53A" />
+                                            d="M20.8007 17.4924C20.7618 17.4737 19.3037 16.7557 19.0446 16.6625C18.9388 16.6245 18.8255 16.5874 18.7049 16.5874C18.508 16.5874 18.3426 16.6855 18.2138 16.8783C18.0681 17.0948 17.6272 17.6102 17.491 17.7641C17.4732 17.7845 17.4489 17.8088 17.4343 17.8088C17.4213 17.8088 17.1956 17.7158 17.1273 17.6861C15.5631 17.0067 14.3759 15.3728 14.2131 15.0973C14.1898 15.0576 14.1889 15.0397 14.1887 15.0397C14.1944 15.0187 14.247 14.9659 14.2741 14.9387C14.3535 14.8602 14.4396 14.7566 14.5228 14.6564C14.5623 14.6089 14.6017 14.5614 14.6405 14.5166C14.7613 14.376 14.8151 14.267 14.8774 14.1406L14.9101 14.0749C15.0623 13.7725 14.9323 13.5173 14.8903 13.4349C14.8558 13.3659 14.2401 11.88 14.1746 11.7239C14.0172 11.3472 13.8092 11.1718 13.5202 11.1718C13.4934 11.1718 13.5202 11.1718 13.4077 11.1765C13.2708 11.1823 12.5249 11.2805 12.1952 11.4884C11.8455 11.7088 11.2539 12.4116 11.2539 13.6475C11.2539 14.7598 11.9598 15.8101 12.2629 16.2095C12.2704 16.2196 12.2842 16.24 12.3043 16.2694C13.4649 17.9644 14.9118 19.2206 16.3786 19.8065C17.7907 20.3706 18.4593 20.4358 18.8395 20.4358H18.8395C18.9993 20.4358 19.1272 20.4232 19.24 20.4121L19.3115 20.4053C19.7993 20.3621 20.8713 19.8066 21.1152 19.1289C21.3073 18.5952 21.3579 18.0121 21.2301 17.8004C21.1426 17.6565 20.9917 17.5841 20.8007 17.4924Z"
+                                            fill="#18A53A" />
                                         <path
-                                                d="M16.178 5.99951C10.7611 5.99951 6.35416 10.3734 6.35416 15.7495C6.35416 17.4884 6.81951 19.1905 7.70104 20.6802L6.01375 25.6574C5.98232 25.7502 6.0057 25.8528 6.07434 25.9226C6.12389 25.9732 6.1911 26.0005 6.25974 26.0005C6.28604 26.0005 6.31253 25.9965 6.33838 25.9883L11.5282 24.3391C12.9484 25.0979 14.5536 25.4985 16.1781 25.4985C21.5945 25.4985 26.001 21.1251 26.001 15.7495C26.001 10.3734 21.5945 5.99951 16.178 5.99951ZM16.178 23.4675C14.6494 23.4675 13.1689 23.0261 11.8963 22.191C11.8535 22.1629 11.8038 22.1485 11.7538 22.1485C11.7273 22.1485 11.7009 22.1525 11.6751 22.1607L9.07527 22.9871L9.91453 20.5111C9.94167 20.4309 9.9281 20.3426 9.8781 20.2742C8.90896 18.95 8.39666 17.3855 8.39666 15.7495C8.39666 11.4933 11.8874 8.03052 16.178 8.03052C20.468 8.03052 23.9583 11.4933 23.9583 15.7495C23.9584 20.0053 20.4682 23.4675 16.178 23.4675Z"
-                                                fill="#18A53A" />
+                                            d="M16.178 5.99951C10.7611 5.99951 6.35416 10.3734 6.35416 15.7495C6.35416 17.4884 6.81951 19.1905 7.70104 20.6802L6.01375 25.6574C5.98232 25.7502 6.0057 25.8528 6.07434 25.9226C6.12389 25.9732 6.1911 26.0005 6.25974 26.0005C6.28604 26.0005 6.31253 25.9965 6.33838 25.9883L11.5282 24.3391C12.9484 25.0979 14.5536 25.4985 16.1781 25.4985C21.5945 25.4985 26.001 21.1251 26.001 15.7495C26.001 10.3734 21.5945 5.99951 16.178 5.99951ZM16.178 23.4675C14.6494 23.4675 13.1689 23.0261 11.8963 22.191C11.8535 22.1629 11.8038 22.1485 11.7538 22.1485C11.7273 22.1485 11.7009 22.1525 11.6751 22.1607L9.07527 22.9871L9.91453 20.5111C9.94167 20.4309 9.9281 20.3426 9.8781 20.2742C8.90896 18.95 8.39666 17.3855 8.39666 15.7495C8.39666 11.4933 11.8874 8.03052 16.178 8.03052C20.468 8.03052 23.9583 11.4933 23.9583 15.7495C23.9584 20.0053 20.4682 23.4675 16.178 23.4675Z"
+                                            fill="#18A53A" />
                                     </g>
                                     <defs>
                                         <clipPath id="clip0_5008_10889">
                                             <rect width="32" height="32" rx="7" transform="matrix(1 0 0 -1 0 32)"
-                                                  fill="white" />
+                                                fill="white" />
                                         </clipPath>
                                     </defs>
                                 </svg>
                             </a>
-                            <a
-                                id="tg-link-header-desktop"
-                                href="https://t.me/gismining_official" target="_blank" rel="noopener noreferrer nofollow"
-                               class="header__social-icon header__social-icon--telegram-contact"
-                               aria-label="Telegram контакт">
+                            <a id="tg-link-header-desktop" href="https://t.me/gismining_official" target="_blank"
+                                rel="noopener noreferrer nofollow"
+                                class="header__social-icon header__social-icon--telegram-contact"
+                                aria-label="Telegram контакт">
                                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <rect width="32" height="32" rx="7" fill="white" />
                                     <path
-                                            d="M23.2949 6.17657C23.2949 6.17657 25.1451 5.31085 24.9909 7.4133C24.9395 8.27903 24.477 11.309 24.1172 14.5864L22.8838 24.2948C22.8838 24.2948 22.781 25.717 21.8559 25.9644C20.9308 26.2117 19.5432 25.0987 19.2862 24.8513C19.0807 24.6658 15.4318 21.8831 14.147 20.5227C13.7872 20.1517 13.3761 19.4096 14.1983 18.5439L19.5946 12.3603C20.2113 11.6182 20.8281 9.8868 18.2584 11.9893L11.0634 17.8638C11.0634 17.8638 10.2411 18.4821 8.69934 17.9256L5.35877 16.6888C5.35877 16.6888 4.12534 15.7613 6.23245 14.8337C11.3718 11.9274 17.6931 8.9592 23.2949 6.17657Z"
-                                            fill="#006FFF" />
+                                        d="M23.2949 6.17657C23.2949 6.17657 25.1451 5.31085 24.9909 7.4133C24.9395 8.27903 24.477 11.309 24.1172 14.5864L22.8838 24.2948C22.8838 24.2948 22.781 25.717 21.8559 25.9644C20.9308 26.2117 19.5432 25.0987 19.2862 24.8513C19.0807 24.6658 15.4318 21.8831 14.147 20.5227C13.7872 20.1517 13.3761 19.4096 14.1983 18.5439L19.5946 12.3603C20.2113 11.6182 20.8281 9.8868 18.2584 11.9893L11.0634 17.8638C11.0634 17.8638 10.2411 18.4821 8.69934 17.9256L5.35877 16.6888C5.35877 16.6888 4.12534 15.7613 6.23245 14.8337C11.3718 11.9274 17.6931 8.9592 23.2949 6.17657Z"
+                                        fill="#006FFF" />
                                 </svg>
                             </a>
                         </div>
@@ -385,25 +410,25 @@ b242yaScript.addEventListener('load', function() {
                 </div>
             </div>
 
-            <button class="header__mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Открыть меню">
+            <button class="header__mobile-menu-toggle" type="button" aria-expanded="false"
+                aria-controls="mobile-menu-panel" aria-label="Открыть меню">
                 <span></span><span></span><span></span>
             </button>
         </div>
 
-        
+
 
         <div class="mobile-menu-panel" id="mobile-menu-panel">
             <!-- ВАЖНО: Мобильное меню также нужно сделать динамическим через второй вызов компонента bitrix:menu, но с другим шаблоном -->
             <div class="mobile-menu-panel__header">
                 <a href="/" class="logo mobile-menu-panel__logo">
-                    <img src="<?= SITE_TEMPLATE_PATH ?>/assets/img/header/logo-sv.svg" alt="GIS Mining - Логотип компании" width="168" height="25">
+                    <img src="<?= SITE_TEMPLATE_PATH ?>/assets/img/header/logo_header_blue.png"
+                        alt="GIS Mining - Логотип компании" width="168" height="25">
                 </a>
                 <div class="mobile-menu-panel__top-icons">
-                    <a
-                        id="wa-link-header-mobile"
-                        href="https://api.whatsapp.com/send/?phone=%2B79311116071" target="_blank"
-                        rel="noopener noreferrer nofollow" class="mobile-menu-panel__icon mobile-menu-panel__icon--whatsapp"
-                        aria-label="WhatsApp">
+                    <a id="wa-link-header-mobile" href="https://api.whatsapp.com/send/?phone=%2B79311116071"
+                        target="_blank" rel="noopener noreferrer nofollow"
+                        class="mobile-menu-panel__icon mobile-menu-panel__icon--whatsapp" aria-label="WhatsApp">
                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_header_whatsapp)">
                                 <rect x="-3.125" y="-3.70117" width="32" height="32" fill="#18A53A" />
@@ -422,9 +447,8 @@ b242yaScript.addEventListener('load', function() {
                             </defs>
                         </svg>
                     </a>
-                    <a
-                        id="tg-link-header-mobile"
-                        href="https://t.me/gismining_official" target="_blank" rel="noopener noreferrer nofollow"
+                    <a id="tg-link-header-mobile" href="https://t.me/gismining_official" target="_blank"
+                        rel="noopener noreferrer nofollow"
                         class="mobile-menu-panel__icon mobile-menu-panel__icon--telegram" aria-label="Telegram">
                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="0.875" y="0.298828" width="24" height="24" rx="7" fill="#0093DE" />
@@ -456,27 +480,27 @@ b242yaScript.addEventListener('load', function() {
                     </form>
                 </div> -->
             <?php $APPLICATION->IncludeComponent(
-                        "bitrix:menu",
-                        "header_mobile", // Название вашего кастомного шаблона меню
-                        Array(
-                            "ALLOW_MULTI_SELECT" => "N",
-                            "CHILD_MENU_TYPE" => "left", // Тип меню для дочерних пунктов (если есть)
-                            "DELAY" => "N",
-                            "MAX_LEVEL" => "2", // Указываем, что меню может быть двухуровневым (для мегаменю)
-                            "MENU_CACHE_GET_VARS" => array(""),
-                            "MENU_CACHE_TIME" => "3600",
-                            "MENU_CACHE_TYPE" => "A",
-                            "MENU_CACHE_USE_GROUPS" => "Y",
-                            "ROOT_MENU_TYPE" => "top", // Указываем, какой файл .php использовать для меню (.top.menu.php)
-                            "USE_EXT" => "Y", // "Y" - подключать файлы .тип_меню.menu_ext.php (для автоматического добавления разделов инфоблоков)
-                        )
-                    );?>
+                "bitrix:menu",
+                "header_mobile", // Название вашего кастомного шаблона меню
+                array(
+                    "ALLOW_MULTI_SELECT" => "N",
+                    "CHILD_MENU_TYPE" => "left", // Тип меню для дочерних пунктов (если есть)
+                    "DELAY" => "N",
+                    "MAX_LEVEL" => "2", // Указываем, что меню может быть двухуровневым (для мегаменю)
+                    "MENU_CACHE_GET_VARS" => array(""),
+                    "MENU_CACHE_TIME" => "3600",
+                    "MENU_CACHE_TYPE" => "A",
+                    "MENU_CACHE_USE_GROUPS" => "Y",
+                    "ROOT_MENU_TYPE" => "top", // Указываем, какой файл .php использовать для меню (.top.menu.php)
+                    "USE_EXT" => "Y", // "Y" - подключать файлы .тип_меню.menu_ext.php (для автоматического добавления разделов инфоблоков)
+                )
+            ); ?>
             <div class="mobile-menu-panel__footer">
                 <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                     xmlns="http://www.w3.org/2000/svg">
+                    xmlns="http://www.w3.org/2000/svg">
                     <path
-                            d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.68 14.91 16.08 14.82 16.43 14.93C17.55 15.3 18.76 15.51 20 15.51C20.55 15.51 21 15.96 21 16.51V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.24 8.7 6.45 9.07 7.57C9.18 7.92 9.09 8.31 8.82 8.59L6.62 10.79Z"
-                            fill="currentColor" />
+                        d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.68 14.91 16.08 14.82 16.43 14.93C17.55 15.3 18.76 15.51 20 15.51C20.55 15.51 21 15.96 21 16.51V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.24 8.7 6.45 9.07 7.57C9.18 7.92 9.09 8.31 8.82 8.59L6.62 10.79Z"
+                        fill="currentColor" />
                 </svg>
                 <div class="mobile-menu-panel__phones-block">
                     <a href="tel:+74951919874" class="mobile-menu-panel__phone">
@@ -496,40 +520,48 @@ b242yaScript.addEventListener('load', function() {
                     </div> -->
             </div>
         </div>
-        
-        
 
 
 
 
-        
+
+
+
     </header>
 
- <!-- MAIN CONTENT -->
-<main class="site-main <?php $APPLICATION->ShowProperty("main_class", "");?>">
+    <!-- MAIN CONTENT -->
+    <main class="site-main <?php $APPLICATION->ShowProperty("main_class", ""); ?>">
 
-    <!-- Глобальные хлебные крошки (кроме главной страницы и mining-investicii) -->
-    <?php
-    $currentPage = $APPLICATION->GetCurPage(false);
-    if ($currentPage !== '/' && $currentPage !== '/index.php' && $currentPage !== '/mining-investicii/' && $currentPage !== '/mining-hotel/'):
+        <!-- Глобальные хлебные крошки (кроме главной страницы, mining-investicii и mining-hotel) -->
+        <?php
+        $currentPage = $APPLICATION->GetCurPage(false);
+        if ($currentPage !== '/' && $currentPage !== '/index.php' && $currentPage !== '/mining-investicii/'):
+            ?>
+
+            <?php $APPLICATION->IncludeComponent(
+                "bitrix:breadcrumb",
+                "standard",
+                array(
+                    "SHOW_HOME" => "Y",
+                    "HOME_TEXT" => "Главная",
+                    "SHOW_SEPARATOR" => "Y",
+                    "SEPARATOR" => "/",
+                    "EXCLUDE_PAGES" => "404.php",
+                    "CACHE_TYPE" => "A",
+                    "CACHE_TIME" => "3600"
+                ),
+                false
+            ); ?>
+
+        <?php endif; ?>
+
+        <?php
+        // Вывод заголовка H1 (используем отложенную функцию, чтобы учитывать свойства, установленные в теле страницы)
+        $APPLICATION->AddBufferContent(function () use ($APPLICATION) {
+            if ($APPLICATION->GetProperty("HIDE_TITLE") != "Y") {
+                $h1Class = $APPLICATION->GetProperty("h1_class");
+                return '<div class="container standard-header"><h1 class="section-title ' . $h1Class . '">' . $APPLICATION->GetTitle(false) . '</h1></div>';
+            }
+            return '';
+        });
         ?>
-
-        <?php $APPLICATION->IncludeComponent(
-        "bitrix:breadcrumb",
-        "standard",
-        Array(
-            "SHOW_HOME" => "Y",
-            "HOME_TEXT" => "Главная",
-            "SHOW_SEPARATOR" => "Y",
-            "SEPARATOR" => "/",
-            "EXCLUDE_PAGES" => "404.php",
-            "CACHE_TYPE" => "A",
-            "CACHE_TIME" => "3600"
-        ),
-        false
-    ); ?>
-
-    <?php endif; ?>
-
-
-    
