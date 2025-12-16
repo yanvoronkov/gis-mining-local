@@ -31,10 +31,13 @@ $APPLICATION->SetPageProperty("HIDE_TITLE", "Y");
 // ====================================================================
 // ПРОВЕРКА ФЛАГА КАЛЬКУЛЯТОРА ДОХОДНОСТИ
 // ====================================================================
-if (isset($_REQUEST['SHOW_CALCULATOR']) && $_REQUEST['SHOW_CALCULATOR'] === 'Y') {
+// Переменная CALCULATOR_PAGE устанавливается в component.php при совпадении URL
+// с шаблоном calculator (#ELEMENT_CODE#/calculator-dohodnosti/)
+if (!empty($arResult['VARIABLES']['CALCULATOR_PAGE']) && $arResult['VARIABLES']['CALCULATOR_PAGE'] === 'Y') {
     include(__DIR__ . '/calculator.php');
     return;
 }
+
 
 // ====================================================================
 // СТАНДАРТНАЯ ДЕТАЛЬНАЯ СТРАНИЦА ТОВАРА

@@ -52,11 +52,11 @@ if (Loader::includeModule('dwstroy.seochpulite')) {
 // ВАЖНО: Порядок критичен! Более специфичные должны идти ПЕРВЫМИ!
 // ====================================================================
 $sefUrlTemplates = [
-    "smart_filter" => "filter/#SMART_FILTER_PATH#/apply/", // ПЕРВЫМ!
-    "calculator" => "#ELEMENT_CODE#/calculator-dohodnosti/",
-    "sections" => "",
-    "section" => "#SECTION_CODE_PATH#/",
-    "element" => "#ELEMENT_CODE#/",
+	"smart_filter" => "filter/#SMART_FILTER_PATH#/apply/", // ПЕРВЫМ!
+	"calculator" => "#ELEMENT_CODE#/calculator-dohodnosti",
+	"sections" => "",
+	"section" => "#SECTION_CODE_PATH#/",
+	"element" => "#ELEMENT_CODE#/",
 ];
 
 // ====================================================================
